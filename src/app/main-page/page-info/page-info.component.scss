@@ -1,0 +1,30 @@
+$mainColor:rgb(64,73,82);
+.name {
+  margin-left: 30px;
+  font-weight: bold;
+  font-size:20px;
+  color:$mainColor;
+}
+.avatar {
+  height: 350px;
+  float:left;
+  min-width: 100px;
+  max-width: 400px;
+  border: 2px solid $mainColor;
+  margin: 7px 7px 7px 0px;
+}
+.info {
+  height: 350px;
+  width: 500px;
+  float:right;
+  border: 2px solid $mainColor;
+  margin: 7px 50px 7px 7px;
+  display: block;
+}
+.bottomButtons {
+  display: block;
+  position: relative;
+  bottom: 0;
+  left: 5%;
+  height: 20%;
+}
