@@ -19,12 +19,53 @@ $mainColor:rgb(64,73,82);
   float:right;
   border: 2px solid $mainColor;
   margin: 7px 50px 7px 7px;
-  display: block;
 }
 .bottomButtons {
-  display: block;
+  margin-bottom: 2px;
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  color: rgb(205,216,228);
+  text-decoration: none;
+  padding: .2em .8em;
+  outline: none;
+  border-right: 3px solid rgba(13,20,27,.5);
+  border-top: 1px solid rgba(270,278,287,.01);
+  background-color: rgb(64,73,82);
+  background-image:
+    radial-gradient(1px 60% at 0% 50%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 60% at 100% 50%, rgba(255,255,255,.3), transparent),
+    linear-gradient(rgb(64,73,82), rgb(72,81,90));
+  &:hover {
+    background-image:
+      radial-gradient(1px 60% at 0% 50%, rgba(255,255,255,.3), transparent),
+      radial-gradient(1px 60% at 100% 50%, rgba(255,255,255,.3), transparent),
+      linear-gradient(rgb(51,60,67), rgb(58,65,72));
+  }
+  &:focus {
+    color: rgb(245,247,250);
+    border-top: 1px solid rgb(67,111,136);
+    background-image:
+      linear-gradient(rgb(46,95,122), rgb(36,68,92));
+    &:hover {
+      border-top: 1px solid rgb(49,87,107);
+      background-image:
+        linear-gradient(rgb(33,77,98), rgb(29,57,77));
+    }
+  }
+}
+
+.info {
+  display: flex;
+  flex-flow: column nowrap;
   position: relative;
-  bottom: 0;
-  left: 5%;
-  height: 20%;
+}
+
+.info button {
+  position: absolute;
+  left: 10%;
+  right: 0;
+  text-align: center;
+  bottom: 20px;
+  display: inline-block;
 }
