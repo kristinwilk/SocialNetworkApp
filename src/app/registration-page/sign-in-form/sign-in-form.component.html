@@ -1,12 +1,12 @@
-<form class="form-container">
+<router-outlet></router-outlet>
+  <form class="form-container">
   <div class="form-title"><h2>Sign in</h2></div>
   <div class="form-title">Name</div>
-  <input class="form-field" type="text" name="firstname" /><br />
+  <input required class="form-field" type="text" name="firstname" /><br />
   <div class="form-title">Email</div>
-  <input class="form-field" type="text" name="email" /><br />
+  <input required class="form-field" type="text" name="email" /><br />
   <div class="submit-container">
-    <button class="submit-button" style="margin-right: 125px">Sign up</button>
-    <input class="submit-button" type="submit" value="Submit" />
+    <a href="/registration" class="submit-button" style="margin-right: 125px">Sign up</a>
+    <a class="submit-button" type="submit">Submit</a>
   </div>
 </form>
-  <router-outlet></router-outlet>

@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationFormComponent implements OnInit {
 
+  person = {
+    Name:'',
+    Surname:'',
+    Nickname:'',
+    email:'',
+    password:''
+  };
   constructor() { }
 
   ngOnInit() {
   }
-
+  add_person(Name,Surname,Nickname,email,password){
+    localStorage.setItem("Name",Name);
+    localStorage.setItem("Surname",Surname);
+    localStorage.setItem("Nickname",Nickname);
+    localStorage.setItem("Email",email);
+    localStorage.setItem("Password",password);
+  }
 }
