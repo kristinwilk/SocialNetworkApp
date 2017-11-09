@@ -8,17 +8,18 @@ import { RegistrationPageComponent } from "./registration-page/registration-page
 import {RegistrationFormComponent} from "./registration-page/registration-form/registration-form.component";
 import {SignInFormComponent} from "./registration-page/sign-in-form/sign-in-form.component";
 import {NetworkComponent} from "./network/network.component";
+import {AuthGuard} from "./app.guard";
 
 export const router : Routes = [
-  {path:'',redirectTo:'timeTO',pathMatch:'full'},
-  {path:'timeTO',component:NetworkComponent},
+  {path:'',redirectTo:'signIn',pathMatch:'full'},
+  {path:'timeTO',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'registration',component:RegistrationFormComponent},
   {path:'signIn',component:SignInFormComponent},
-  {path:'storage',component:NetworkComponent},
-  {path:'photos',component:NetworkComponent},
-  {path:'settings',component:NetworkComponent},
-  {path:'friends',component:NetworkComponent},
-  {path:'messages',component:NetworkComponent},
-  {path:'news',component:NetworkComponent},
+  {path:'storage',canActivate:[AuthGuard],component:NetworkComponent},
+  {path:'photos',canActivate:[AuthGuard],component:NetworkComponent},
+  {path:'settings',canActivate:[AuthGuard],component:NetworkComponent},
+  {path:'friends',canActivate:[AuthGuard],component:NetworkComponent},
+  {path:'messages',canActivate:[AuthGuard],component:NetworkComponent},
+  {path:'news',canActivate:[AuthGuard],component:NetworkComponent},
   ];
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);

@@ -9,7 +9,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 })
 export class RegistrationFormComponent implements OnInit {
   private localStorageService = LocalStorageService;
-  public person = {
+  person = {
     Name:'',
     Surname:'',
     Nickname:'',
@@ -22,7 +22,7 @@ export class RegistrationFormComponent implements OnInit {
   }
   add_person(){
     sessionStorage.clear();
-    sessionStorage.setItem("Nickname",this.person.email);
+    sessionStorage.setItem("email",this.person.email);
     localStorage.setItem(this.person.email,JSON.stringify(this.person));
     location.href = '/timeTO';
   }

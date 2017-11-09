@@ -15,6 +15,7 @@ import { SignInFormComponent } from './registration-page/sign-in-form/sign-in-fo
 import { RegistrationFormComponent } from './registration-page/registration-form/registration-form.component';
 import { NetworkComponent } from './network/network.component';
 import { PostComponent } from './network/news/post/post.component';
+import {AuthGuard} from "./app.guard";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { PostComponent } from './network/news/post/post.component';
     HttpModule,
     routes
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

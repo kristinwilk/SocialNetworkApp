@@ -23,7 +23,7 @@ export class SignInFormComponent implements OnInit {
     }
     if(JSON.parse(localStorage.getItem(this.person.email)).password==this.person.password) {
       sessionStorage.clear();
-      sessionStorage.setItem("Nickname",this.person.email);
+      sessionStorage.setItem("email",this.person.email);
       this.error_message = '';
       location.href = '/timeTO';
       return;

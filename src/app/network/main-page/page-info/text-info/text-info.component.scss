@@ -2,9 +2,9 @@
   position:relative;
   width:80%;
   padding:1em;
-  margin:2em 2em 4em 2em;
+  margin:1em 2em 4em 2em;
   background:rgb(205,216,228);
-  height:200px;
+  height:221px;
   overflow: auto;
   -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
   -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -19,7 +19,14 @@
     z-index:-2;
   }
   p {
+    margin-bottom: 1px;
     font-size:16px;
     font-weight:bold;
   }
+}
+.textInfo {
+  resize: none;
+  border: 1px solid rgb(205,216,228);
+  width: 300px;
+  background-color: rgb(205,216,228);
 }

@@ -1,6 +1,6 @@
 <div id="textInfo">
-  <p>Возраст: 132</p>
-  <p>Телефон: 8989898989</p>
-  <p>Город: Санкт-Петербург</p>
-  <p>Интересы: </p>
+  <p>Age: <input class="textInfo" disabled [(ngModel)]="info.age" maxlength="3" (keypress)="check(event)" id="age" /></p>
+  <p>Phone: <input class="textInfo" disabled [(ngModel)]="info.phone" maxlength="20" (keypress)="check(event)" pattern='/^[\+\(]{0,1}[\d]+[a-z\(\)\-\+\s]*/ig' id="phone" /></p>
+  <p>City: <input class="textInfo" disabled maxlength="20" [(ngModel)]="info.city" pattern='' id="city" /></p>
+  <p>Interests:</p><textarea class="textInfo" style="height: 61px;width: 390px"  maxlength="185" disabled [(ngModel)]="info.interests" pattern='' id="interests"></textarea>
 </div>

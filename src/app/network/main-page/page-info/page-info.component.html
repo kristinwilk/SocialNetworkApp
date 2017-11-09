@@ -1,10 +1,10 @@
 <div class="name">
-  <p>Владислав Fess Беспалов</p>
+  <p>{{person?.Name}} {{person?.Nickname}} {{person?.Surname}}</p>
   <img class="avatar" src="assets/img.Images_Pic_tmp.jpg"/>
 </div>
 <div class="info">
   <app-text-info></app-text-info>
   <button class="bottomButtons">Friends</button>
   <button class="bottomButtons" style="left: 40%">Photos</button>
-  <button class="bottomButtons" style="left: 70%">Edit</button>
+  <button (click)="edit()" class="bottomButtons" style="left: 70%" name="edit">{{isEditing}}</button>
 </div>

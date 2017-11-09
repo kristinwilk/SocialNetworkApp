@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 body {
   background-color: rgb(205,216,228);
+  -ms-overflow-style: none;
+  overflow: auto;
+}
+#list::-webkit-scrollbar{
+  width: 0;
 }
