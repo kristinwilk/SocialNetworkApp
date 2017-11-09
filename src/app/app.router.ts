@@ -13,6 +13,12 @@ export const router : Routes = [
   {path:'',redirectTo:'timeTO',pathMatch:'full'},
   {path:'timeTO',component:NetworkComponent},
   {path:'registration',component:RegistrationFormComponent},
-  {path:'signIn',component:SignInFormComponent}
+  {path:'signIn',component:SignInFormComponent},
+  {path:'storage',component:NetworkComponent},
+  {path:'photos',component:NetworkComponent},
+  {path:'settings',component:NetworkComponent},
+  {path:'friends',component:NetworkComponent},
+  {path:'messages',component:NetworkComponent},
+  {path:'news',component:NetworkComponent},
   ];
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);

@@ -1,18 +1,18 @@
 <router-outlet></router-outlet>
-  <form class="form-container">
+  <form class="form-container" (submit)="add_person()">
   <div class="form-title"><h2>Sign up</h2></div>
   <div class="form-title">Name</div>
-  <input ng-model="person.Name" class="form-field" required type="text" name="name" /><br />
+  <input class="form-field"  maxlength="10" pattern='^[a-zA-Z]+$'  [(ngModel)]="person.Name" required type="text" name="name" /><br />
   <div class="form-title">Surname</div>
-  <input class="form-field" required type="text" name="surname" /><br />
+  <input class="form-field" maxlength="10" pattern='^[a-zA-Z]+$'  [(ngModel)]="person.Surname" required type="text" name="surname" /><br />
   <div class="form-title">Nickname</div>
-  <input class="form-field" required type="text" name="nick" /><br />
+  <input class="form-field" maxlength="10" [(ngModel)]="person.Nickname" required  type="text" name="nick" /><br />
   <div class="form-title">Email</div>
-  <input class="form-field" required type="text" name="email" /><br />
+  <input class="form-field" minlength="3" pattern='([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$' [(ngModel)]="person.email" required type="text" name="email" /><br />
   <div class="form-title">Password</div>
-  <input class="form-field" required type="password" name="password" /><br />
+  <input class="form-field" minlength="6" pattern="^[a-zA-Z0-9]+$" [(ngModel)]="person.password" required type="password" name="password" /><br />
   <div class="submit-container">
     <a href="/signIn" class="submit-button" style="margin-right: 125px">Sign in</a>
-    <a class="submit-button" (click)="add_person(person.Name,person.Surname,person.Nickname,person.email,person.password)" type="submit">Submit</a>
+    <button class="submit-button" type="submit">Submit</button>
   </div>
 </form>

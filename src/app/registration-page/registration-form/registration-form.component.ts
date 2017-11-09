@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageModule } from 'angular-2-local-storage';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'app-registration-form',
@@ -6,23 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registration-form.component.css']
 })
 export class RegistrationFormComponent implements OnInit {
-
-  person = {
+  private localStorageService = LocalStorageService;
+  public person = {
     Name:'',
     Surname:'',
     Nickname:'',
     email:'',
     password:''
   };
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
-  add_person(Name,Surname,Nickname,email,password){
-    localStorage.setItem("Name",Name);
-    localStorage.setItem("Surname",Surname);
-    localStorage.setItem("Nickname",Nickname);
-    localStorage.setItem("Email",email);
-    localStorage.setItem("Password",password);
+  add_person(){
+    sessionStorage.clear();
+    sessionStorage.setItem("Nickname",this.person.email);
+    localStorage.setItem(this.person.email,JSON.stringify(this.person));
+    location.href = '/timeTO';
   }
 }

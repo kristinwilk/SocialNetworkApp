@@ -14,6 +14,7 @@ import { RegistrationPageComponent } from './registration-page/registration-page
 import { SignInFormComponent } from './registration-page/sign-in-form/sign-in-form.component';
 import { RegistrationFormComponent } from './registration-page/registration-form/registration-form.component';
 import { NetworkComponent } from './network/network.component';
+import { PostComponent } from './network/news/post/post.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NetworkComponent } from './network/network.component';
     RegistrationPageComponent,
     SignInFormComponent,
     RegistrationFormComponent,
-    NetworkComponent
+    NetworkComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
