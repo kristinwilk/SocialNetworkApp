@@ -4,6 +4,6 @@ body {
   -ms-overflow-style: none;
   overflow: auto;
 }
-#list::-webkit-scrollbar{
+body::-webkit-scrollbar{
   width: 0;
 }

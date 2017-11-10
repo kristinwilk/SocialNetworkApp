@@ -11,7 +11,7 @@ import {NetworkComponent} from "./network/network.component";
 import {AuthGuard} from "./app.guard";
 
 export const router : Routes = [
-  {path:'',redirectTo:'signIn',pathMatch:'full'},
+  {path:'',redirectTo:'timeTO',pathMatch:'full'},
   {path:'timeTO',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'registration',component:RegistrationFormComponent},
   {path:'signIn',component:SignInFormComponent},
