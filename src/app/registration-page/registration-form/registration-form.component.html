@@ -11,6 +11,7 @@
   <input class="form-field" minlength="3" pattern='([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$' [(ngModel)]="person.email" required type="text" name="email" /><br />
   <div class="form-title">Password</div>
   <input class="form-field" minlength="6" pattern="^[a-zA-Z0-9]+$" [(ngModel)]="person.password" required type="password" name="password" /><br />
+    <div style="color:red;">{{error_message}}</div>
   <div class="submit-container">
     <a href="/signIn" class="submit-button" style="margin-right: 125px">Sign in</a>
     <button class="submit-button" type="submit">Submit</button>

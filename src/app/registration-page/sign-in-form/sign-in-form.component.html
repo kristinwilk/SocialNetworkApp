@@ -1,8 +1,8 @@
 <router-outlet></router-outlet>
   <form class="form-container" (submit)="checkPerson(event)">
   <div class="form-title"><h2>Sign in</h2></div>
-  <div class="form-title">Email</div>
-  <input [(ngModel)]="person.email" minlength="3" pattern='([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$' required class="form-field" type="text" name="email" /><br />
+  <div class="form-title">Nickname</div>
+  <input [(ngModel)]="person.Nickname" minlength="3" pattern='' required class="form-field" type="text" name="Nickname" /><br />
   <div class="form-title">Password</div>
   <input [(ngModel)]="person.password" minlength="6" required class="form-field" type="password" name="password" /><br />
   <div style="color:red;">{{error_message}}</div>

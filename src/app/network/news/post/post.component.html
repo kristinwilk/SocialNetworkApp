@@ -1,9 +1,9 @@
 
-<div class="post">
+<div class="post" #Post>
   <img class="littleAvatar" src="assets/img.Images_Pic_tmp.jpg"/>
-  <textarea id="message" style="resize: none" disabled [ngModel]="post.text" class="message"></textarea>
+  <textarea #TextField id="message" style="resize: none" disabled [ngModel]="post.text" class="message"></textarea>
   <p>{{time}}
-  <button class="postButtons" (click)="delete()" id="delete"></button>
+  <button class="postButtons" (click)="Delete()" id="delete"></button>
   <button class="postButtons" (click)="edit()" id="edit"></button>
   </p>
 </div>

@@ -3,8 +3,10 @@
   <img class="avatar" src="assets/img.Images_Pic_tmp.jpg"/>
 </div>
 <div class="info">
-  <app-text-info></app-text-info>
+  <app-text-info [person]="person"></app-text-info>
   <button class="bottomButtons">Friends</button>
-  <button class="bottomButtons" style="left: 40%">Photos</button>
-  <button (click)="edit()" class="bottomButtons" style="left: 70%" name="edit">{{isEditing}}</button>
+  <button class="bottomButtons" style="left: 29%">Photos</button>
+  <button (click)="edit()" id="Edit" class="bottomButtons" style="left: 51%" name="edit">{{isEditing}}</button>
+  <button class="bottomButtons" id="invite" style="left: 51%;display: none">Invite</button>
+  <button class="bottomButtons" id="message" style="left: 73%;display: none">Message</button>
 </div>

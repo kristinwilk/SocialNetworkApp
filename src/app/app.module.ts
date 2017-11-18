@@ -16,6 +16,7 @@ import { RegistrationFormComponent } from './registration-page/registration-form
 import { NetworkComponent } from './network/network.component';
 import { PostComponent } from './network/news/post/post.component';
 import {AuthGuard} from "./app.guard";
+import {MainServiceService} from "./main-service.service";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import {AuthGuard} from "./app.guard";
     HttpModule,
     routes
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,MainServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {person, post} from "../../../classes";
+import {MainServiceService} from "../../../main-service.service";
 
 @Component({
   selector: 'app-post',
@@ -6,29 +8,33 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
+  //inпut tie file
+  constructor(private service : MainServiceService) { }
+  @ViewChild('TextField') el:ElementRef;
+  @ViewChild('Post') Post:ElementRef;
 
-  constructor() { }
-  @Input() post = {
-    likes: null,
-    time:null,
-    text:''
-  };
+  @Input() post = new post();
+  @Input() person = new person();
   time;
   isEditing = false;
   ngOnInit() {
+    if(!this.service.isAuthPerson(this.person.Nickname)){
+      document.getElementById('edit').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
     this.time = new Date(this.post.time).toLocaleString();
   }
   edit(){
     this.isEditing = !this.isEditing;
     if(this.isEditing) {
-      document.getElementById('message').removeAttribute('disabled');
+      this.el.nativeElement.removeAttribute("disabled");
     }
     else{
-      document.getElementById('message').setAttribute('disabled','true');
+      this.el.nativeElement.setAttribute('disabled','true');
     }
 
   }
-  delete(){
-
+  Delete(){
+    this.Post.nativeElement.remove();
   }
 }

@@ -1,5 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {TextInfoComponent} from "./text-info/text-info.component";
+import {person, post} from "../../../classes";
+import {MainServiceService} from "../../../main-service.service";
 
 @Component({
   selector: 'app-page-info',
@@ -9,17 +11,14 @@ import {TextInfoComponent} from "./text-info/text-info.component";
 export class PageInfoComponent implements OnInit {
   @ViewChild(TextInfoComponent) textInfo : TextInfoComponent;
   isEditing = 'Edit';
-  constructor() { }
-
-  person = {
-    Name:'',
-    Surname:'',
-    Nickname:'',
-    email:'',
-    password:''
-  };
+  constructor(private service: MainServiceService) { }
+  @Input() person = new person();
   ngOnInit() {
-    this.person = JSON.parse(localStorage.getItem(sessionStorage.getItem("email")));
+    if(!this.service.isAuthPerson(this.person.Nickname)){
+      document.getElementById('Edit').style.display = 'none';
+      document.getElementById('invite').style.display = 'inline-block';
+      document.getElementById('message').style.display = 'inline-block';
+    }
   }
   edit(){
     if(this.isEditing=='Edit'){

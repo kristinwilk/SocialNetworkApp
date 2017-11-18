@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageModule } from 'angular-2-local-storage';
+import {person} from "../../classes";
+import {MainServiceService} from "../../main-service.service";
+import {debug} from "util";
 
 @Component({
   selector: 'app-sign-in-form',
@@ -8,28 +11,20 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 })
 export class SignInFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service : MainServiceService) { }
   error_message = '';
-  person = {
-    email:'',
-    password:''
-  };
+  person = new person();
   ngOnInit() {
   }
-  checkPerson (event){
-    if(JSON.parse(localStorage.getItem(this.person.email))==null){
-      this.error_message = 'Incorrect email';
+  checkPerson (){
+    event.preventDefault();
+    if(this.service.checkNickname(this.person)){
+      this.error_message = 'Incorrect nickname';
       return false;
     }
-    if(JSON.parse(localStorage.getItem(this.person.email)).password==this.person.password) {
-      sessionStorage.clear();
-      sessionStorage.setItem("email",this.person.email);
-      this.error_message = '';
-      location.href = '/timeTO';
-      return;
+    if(!this.service.checkPassword(this.person)) {
+      this.error_message = 'Incorrect password';
     }
-    this.error_message = 'Incorrect password';
-    return false;
   }
 
 }

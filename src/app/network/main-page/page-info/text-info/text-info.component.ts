@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {MainServiceService} from "../../../../main-service.service";
+import {info, person} from "../../../../classes";
 
 @Component({
   selector: 'app-text-info',
@@ -7,18 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TextInfoComponent implements OnInit {
 
-  info = {
-    age:'',
-    phone:'',
-    city:'',
-    interests:''
-  };
-  constructor() { }
+  info = new info();
+  constructor(private service : MainServiceService) { }
 
+  @Input() person = new person();
   ngOnInit() {
-    let info =  localStorage.getItem(sessionStorage.getItem('email')+':info');
+    let info =  this.service.getInfo(this.person.Nickname);
     if(info!=null)
-      this.info = JSON.parse(info);
+      this.info = info;
   }
 
   check(event) {
@@ -36,7 +34,7 @@ export class TextInfoComponent implements OnInit {
     document.getElementById('interests').removeAttribute('disabled');
   }
   public endOfEdit(){
-    localStorage.setItem(sessionStorage.getItem('email')+':info',JSON.stringify(this.info));
+    this.service.changeInfo(JSON.stringify(this.info));
     document.getElementById('age').setAttribute('disabled','true');
     document.getElementById('city').setAttribute('disabled','true');
     document.getElementById('phone').setAttribute('disabled','true');

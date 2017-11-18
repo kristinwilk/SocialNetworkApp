@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {MainServiceService} from "../main-service.service";
 
 @Component({
   selector: 'app-network',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./network.component.css']
 })
 export class NetworkComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private route : ActivatedRoute,private service: MainServiceService) {
   }
+  person;
+  ngOnInit():void {
+    this.route.params.subscribe(params =>{
+      this.person = this.service.getPerson(params['Nickname']);
+    })
+  }
+
 
 }
