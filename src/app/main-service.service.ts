@@ -113,26 +113,8 @@ export class MainServiceService {
       let invite = oldInvites.concat(sessionStorage.getItem("Nickname"));
       localStorage.setItem(Nickname + ':invites', JSON.stringify(invite));
     }
-    if (localStorage.getItem(sessionStorage.getItem("Nickname") + ':sentInvites') == null) {
-      let invite = new Array(1);
-      invite[0] = Nickname;
-      localStorage.setItem(sessionStorage.getItem("Nickname") + ':sentInvites', JSON.stringify(invite));
-    }
-    else {
-      let oldInvites = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname") + ':sentInvites'));
-      let invite = oldInvites.concat(Nickname);
-      localStorage.setItem(sessionStorage.getItem("Nickname") + ':sentInvites', JSON.stringify(invite));
-    }
-    if (localStorage.getItem(sessionStorage.getItem("Nickname") + ':followers') == null) {
-      let invite = new Array(1);
-      invite[0] = Nickname;
-      localStorage.setItem(sessionStorage.getItem("Nickname") + ':followers', JSON.stringify(invite));
-    }
-    else {
-      let oldInvites = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname") + ':followers'));
-      let invite = oldInvites.concat(Nickname);
-      localStorage.setItem(sessionStorage.getItem("Nickname") + ':followers', JSON.stringify(invite));
-    }
+    this.addSentInvites(sessionStorage.getItem("Nickname"),Nickname);
+    this.addFollower(Nickname,sessionStorage.getItem("Nickname"));
   }
   public getAllFriends(Nickname):any{
     return JSON.parse(localStorage.getItem(Nickname+':friends'));
@@ -167,38 +149,103 @@ export class MainServiceService {
     return result;
   }
   public addToFriendsList(Nickname):void{
-
+    if (localStorage.getItem(Nickname + ':friends') == null) {
+      let invite = new Array(1);
+      invite[0] = sessionStorage.getItem("Nickname");
+      localStorage.setItem(Nickname + ':friends', JSON.stringify(invite));
+    }
+    else {
+      let oldInvites = JSON.parse(localStorage.getItem(Nickname + ':friends'));
+      let invite = oldInvites.concat(sessionStorage.getItem("Nickname"));
+      localStorage.setItem(Nickname + ':friends', JSON.stringify(invite));
+    }
+    if (localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends') == null) {
+      let invite = new Array(1);
+      invite[0] = Nickname;
+      localStorage.setItem(sessionStorage.getItem("Nickname") + ':friends', JSON.stringify(invite));
+    }
+    else {
+      let oldInvites = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends'));
+      let invite = oldInvites.concat(Nickname);
+      localStorage.setItem(sessionStorage.getItem("Nickname") + ':friends', JSON.stringify(invite));
+    }
+    this.removeInvite(sessionStorage.getItem("Nickname"),Nickname);
+    this.removeFollower(sessionStorage.getItem("Nickname"),Nickname);
+    this.removeSentInvite(Nickname,sessionStorage.getItem("Nickname"));
   }
   public removeFromFriendsList(Nickname):void{
-
+    this.removeFriend(sessionStorage.getItem("Nickname"),Nickname);
+    this.removeFriend(Nickname,sessionStorage.getItem("Nickname"));
+    this.addFollower(sessionStorage.getItem("Nickname"),Nickname);
+    this.addSentInvites(Nickname,sessionStorage.getItem("Nickname"));
+  }
+  public addFollower(Nickname1,Nickname2):void{
+    if (localStorage.getItem(Nickname1 + ':followers') == null) {
+      let invite = new Array(1);
+      invite[0] = Nickname2;
+      localStorage.setItem(Nickname1 + ':followers', JSON.stringify(invite));
+    }
+    else {
+      let oldInvites = JSON.parse(localStorage.getItem(Nickname1 + ':followers'));
+      let invite = oldInvites.concat(Nickname2);
+      localStorage.setItem(Nickname1 + ':followers', JSON.stringify(invite));
+    }
+  }
+  public addSentInvites(Nickname1,Nickname2):void{
+    if (localStorage.getItem(Nickname1 + ':sentInvites') == null) {
+      let invite = new Array(1);
+      invite[0] = Nickname2;
+      localStorage.setItem(Nickname1 + ':sentInvites', JSON.stringify(invite));
+    }
+    else {
+      let oldInvites = JSON.parse(localStorage.getItem(Nickname1 + ':sentInvites'));
+      let invite = oldInvites.concat(Nickname2);
+      localStorage.setItem(Nickname1 + ':sentInvites', JSON.stringify(invite));
+    }
+  }
+  public removeFriend(Nickname1,Nickname2):void{
+    let friendsList = this.getAllFriends(Nickname1);
+    for(let i = 0;i < friendsList.length;i++){
+      if(friendsList[i]==Nickname2){
+        friendsList.splice(i,1);
+        localStorage.setItem(Nickname1+":friends",friendsList);
+        break;
+      }
+    }
   }
   public cancelInvite(Nickname):void{
-    let sentInvites = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname") + ':sentInvites'));
+    this.removeSentInvite(sessionStorage.getItem("Nickname"),Nickname);
+    this.removeInvite(Nickname,sessionStorage.getItem("Nickname"));
+    this.removeFollower(Nickname,sessionStorage.getItem("Nickname"));
+  }
+  public removeSentInvite(Nickname1,Nickname2):void{
+    let sentInvites = JSON.parse(localStorage.getItem(Nickname1 + ':sentInvites'));
     for(let i = 0;i<sentInvites.length;i++){
-      if(sentInvites[i]==Nickname){
+      if(sentInvites[i]==Nickname2){
         sentInvites.splice(i,1);
-        localStorage.setItem(sessionStorage.getItem("Nickname") + ':sentInvites',JSON.stringify(sentInvites));
-        break;
-      }
-    }
-    let followers = JSON.parse(localStorage.getItem(Nickname + ':followers'));
-    let invites = JSON.parse(localStorage.getItem(Nickname + ':invites'));
-    for(let i = 0;i<invites.length;i++){
-      if(invites[i]==Nickname){
-        invites.splice(i,1);
-        localStorage.setItem(Nickname + ':invites',JSON.stringify(invites));
-        break;
-      }
-    }
-    for(let i = 0;i<followers.length;i++){
-      if(followers[i]==Nickname){
-        followers.splice(i,1);
-        localStorage.setItem(Nickname + ':followers',JSON.stringify(followers));
+        localStorage.setItem(Nickname1 + ':sentInvites',JSON.stringify(sentInvites));
         break;
       }
     }
   }
-  public removeFromInvites(Nickname):void{
-
+  public removeFollower(Nickname1,Nickname2):void{
+    let followers = JSON.parse(localStorage.getItem(Nickname1 + ':followers'));
+    for(let i = 0;i<followers.length;i++){
+      if(followers[i]==Nickname2){
+        followers.splice(i,1);
+        localStorage.setItem(Nickname1 + ':followers',JSON.stringify(followers));
+        break;
+      }
+    }
+  }
+  public removeInvite(Nickname1,Nickname2):void{
+    let invites = JSON.parse(localStorage.getItem(Nickname1 + ':invites'));
+    for(let i = 0;i<invites.length;i++){
+      if(invites[i]==Nickname2){
+        invites.splice(i,1);
+        localStorage.setItem(Nickname1 + ':invites',JSON.stringify(invites));
+        break;
+      }
+    }
   }
 }
