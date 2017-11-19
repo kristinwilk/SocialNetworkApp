@@ -123,6 +123,16 @@ export class MainServiceService {
       let invite = oldInvites.concat(Nickname);
       localStorage.setItem(sessionStorage.getItem("Nickname") + ':sentInvites', JSON.stringify(invite));
     }
+    if (localStorage.getItem(sessionStorage.getItem("Nickname") + ':followers') == null) {
+      let invite = new Array(1);
+      invite[0] = Nickname;
+      localStorage.setItem(sessionStorage.getItem("Nickname") + ':followers', JSON.stringify(invite));
+    }
+    else {
+      let oldInvites = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname") + ':followers'));
+      let invite = oldInvites.concat(Nickname);
+      localStorage.setItem(sessionStorage.getItem("Nickname") + ':followers', JSON.stringify(invite));
+    }
   }
   public getAllFriends(Nickname):any{
     return JSON.parse(localStorage.getItem(Nickname+':friends'));
@@ -155,5 +165,40 @@ export class MainServiceService {
       }
     }
     return result;
+  }
+  public addToFriendsList(Nickname):void{
+
+  }
+  public removeFromFriendsList(Nickname):void{
+
+  }
+  public cancelInvite(Nickname):void{
+    let sentInvites = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname") + ':sentInvites'));
+    for(let i = 0;i<sentInvites.length;i++){
+      if(sentInvites[i]==Nickname){
+        sentInvites.splice(i,1);
+        localStorage.setItem(sessionStorage.getItem("Nickname") + ':sentInvites',JSON.stringify(sentInvites));
+        break;
+      }
+    }
+    let followers = JSON.parse(localStorage.getItem(Nickname + ':followers'));
+    let invites = JSON.parse(localStorage.getItem(Nickname + ':invites'));
+    for(let i = 0;i<invites.length;i++){
+      if(invites[i]==Nickname){
+        invites.splice(i,1);
+        localStorage.setItem(Nickname + ':invites',JSON.stringify(invites));
+        break;
+      }
+    }
+    for(let i = 0;i<followers.length;i++){
+      if(followers[i]==Nickname){
+        followers.splice(i,1);
+        localStorage.setItem(Nickname + ':followers',JSON.stringify(followers));
+        break;
+      }
+    }
+  }
+  public removeFromInvites(Nickname):void{
+
   }
 }
