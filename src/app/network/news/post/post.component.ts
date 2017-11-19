@@ -12,17 +12,24 @@ export class PostComponent implements OnInit {
   constructor(private service : MainServiceService) { }
   @ViewChild('TextField') el:ElementRef;
   @ViewChild('Post') Post:ElementRef;
+  @ViewChild('EditButton') EditButton:ElementRef;
+  @ViewChild('DeleteButton') DeleteButton:ElementRef;
 
   @Input() post = new post();
   @Input() person = new person();
+  Nickname;
   time;
   isEditing = false;
   ngOnInit() {
-    if(!this.service.isAuthPerson(this.person.Nickname)){
-      document.getElementById('edit').style.display = 'none';
-      document.getElementById('delete').style.display = 'none';
-    }
+    this.Nickname = this.post.Nickname;
     this.time = new Date(this.post.time).toLocaleString();
+    if(this.service.isAuthPerson(this.post.Nickname)){
+      return;
+    }
+    this.EditButton.nativeElement.style.display = 'none';
+    if(!this.service.isAuthPerson(this.person.Nickname)){
+      this.DeleteButton.nativeElement.style.display = 'none';
+    }
   }
   edit(){
     this.isEditing = !this.isEditing;
@@ -30,11 +37,14 @@ export class PostComponent implements OnInit {
       this.el.nativeElement.removeAttribute("disabled");
     }
     else{
+      this.post.text = this.el.nativeElement.value;
+      this.service.editPost(this.post,this.person.Nickname);
       this.el.nativeElement.setAttribute('disabled','true');
     }
 
   }
   Delete(){
+    this.service.removePost(this.post,this.person.Nickname);
     this.Post.nativeElement.remove();
   }
 }

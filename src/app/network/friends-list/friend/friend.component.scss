@@ -1,0 +1,65 @@
+$mainColor: rgb(64,73,82);
+.post {
+  width:35%;
+  padding:1em;
+  margin:1em 2em 4em 2em;
+  background:rgb(205,216,228);
+  height:100px;
+  overflow: auto;
+  -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.littleAvatar {
+  background-image: url("assets/img.Images_Pic_tmp.jpg");
+  background-size: cover;
+  height: 80px;
+  width: 60px;
+  float:left;
+  border: 2px solid $mainColor;
+  margin: 7px 7px 7px 0px;
+}
+.message {
+  margin-top: 5px;
+  float: left;
+  border: 1px solid $mainColor;
+  border-radius: 5px;
+  width: 90%;
+  height: 88px;
+}
+
+button {
+  margin-left: 170px;
+  cursor: pointer;
+  margin-bottom: 2px;
+  width: 130px;
+  height: 30px;
+  color: rgb(205,216,228);
+  text-decoration: none;
+  padding: .2em .8em;
+  outline: none;
+  border-right: 3px solid rgba(13,20,27,.5);
+  border-top: 1px solid rgba(270,278,287,.01);
+  background-color: rgb(64,73,82);
+  background-image:
+    radial-gradient(1px 60% at 0% 50%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 60% at 100% 50%, rgba(255,255,255,.3), transparent),
+    linear-gradient(rgb(64,73,82), rgb(72,81,90));
+  &:hover {
+    background-image:
+      radial-gradient(1px 60% at 0% 50%, rgba(255,255,255,.3), transparent),
+      radial-gradient(1px 60% at 100% 50%, rgba(255,255,255,.3), transparent),
+      linear-gradient(rgb(51,60,67), rgb(58,65,72));
+  }
+  &:focus {
+    color: rgb(245,247,250);
+    border-top: 1px solid rgb(67,111,136);
+    background-image:
+      linear-gradient(rgb(46,95,122), rgb(36,68,92));
+    &:hover {
+      border-top: 1px solid rgb(49,87,107);
+      background-image:
+        linear-gradient(rgb(33,77,98), rgb(29,57,77));
+    }
+  }
+}

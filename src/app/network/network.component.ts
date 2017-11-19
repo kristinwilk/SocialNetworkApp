@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MainServiceService} from "../main-service.service";
 
 @Component({
@@ -8,13 +8,17 @@ import {MainServiceService} from "../main-service.service";
   styleUrls: ['./network.component.css']
 })
 export class NetworkComponent implements OnInit {
-  constructor(private route : ActivatedRoute,private service: MainServiceService) {
+  constructor(public router: Router,private route : ActivatedRoute,private service: MainServiceService) {
   }
   person;
+  isMain = false;
   ngOnInit():void {
     this.route.params.subscribe(params =>{
       this.person = this.service.getPerson(params['Nickname']);
-    })
+    });
+    if(this.router.url === '/timeTO/' + this.person.Nickname){
+      this.isMain=true;
+    }
   }
 
 

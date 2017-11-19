@@ -17,6 +17,8 @@ import { NetworkComponent } from './network/network.component';
 import { PostComponent } from './network/news/post/post.component';
 import {AuthGuard} from "./app.guard";
 import {MainServiceService} from "./main-service.service";
+import { FriendComponent } from './network/friends-list/friend/friend.component';
+import { FriendsListComponent } from './network/friends-list/friends-list.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {MainServiceService} from "./main-service.service";
     SignInFormComponent,
     RegistrationFormComponent,
     NetworkComponent,
-    PostComponent
+    PostComponent,
+    FriendComponent,
+    FriendsListComponent
   ],
   imports: [
     BrowserModule,

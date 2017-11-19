@@ -1,6 +1,6 @@
 <app-page-info [person]=user></app-page-info>
-<app-next-news></app-next-news>
+<app-next-news [person]=user></app-next-news>
 <div *ngFor="let post of array">
 <app-post [post]=post [person]=person></app-post>
 </div>
-
+<app-friends-list></app-friends-list>

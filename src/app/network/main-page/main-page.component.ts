@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {person, post} from "../../classes";
+import {MainServiceService} from "../../main-service.service";
 
 @Component({
   selector: 'app-main-page',
@@ -8,7 +9,7 @@ import {person, post} from "../../classes";
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:MainServiceService) { }
   array;
   @Input() person = new person();
   user;
@@ -17,7 +18,7 @@ export class MainPageComponent implements OnInit {
     return Date.parse(posts1.time) - Date.parse(posts2.time);
   }
   ngOnInit() {
-    this.array = JSON.parse(localStorage.getItem(this.person.Nickname +':posts'));
+    this.array = this.service.getAllPosts(this.person.Nickname);
     if(this.array!=null)
       this.array.sort(this.compare);
     this.user = this.person;

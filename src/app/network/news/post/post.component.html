@@ -1,9 +1,10 @@
 
 <div class="post" #Post>
-  <img class="littleAvatar" src="assets/img.Images_Pic_tmp.jpg"/>
+  <p><a href="/timeTO/{{Nickname}}">{{Nickname}}</a></p>
+  <a class="littleAvatar" href="/timeTO/{{Nickname}}"></a>
   <textarea #TextField id="message" style="resize: none" disabled [ngModel]="post.text" class="message"></textarea>
   <p>{{time}}
-  <button class="postButtons" (click)="Delete()" id="delete"></button>
-  <button class="postButtons" (click)="edit()" id="edit"></button>
+  <button class="postButtons" #DeleteButton (click)="Delete()" id="delete"></button>
+  <button class="postButtons" #EditButton (click)="edit()" id="edit"></button>
   </p>
 </div>

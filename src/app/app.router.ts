@@ -9,9 +9,10 @@ import {RegistrationFormComponent} from "./registration-page/registration-form/r
 import {SignInFormComponent} from "./registration-page/sign-in-form/sign-in-form.component";
 import {NetworkComponent} from "./network/network.component";
 import {AuthGuard} from "./app.guard";
+import {MainServiceService} from "./main-service.service";
 
 export const router : Routes = [
-  {path:'',redirectTo:'timeTO',pathMatch:'full'},
+  {path:'',redirectTo:'timeTO/',pathMatch:'full'},
   {path:'timeTO/:Nickname',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'timeTO',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'registration',component:RegistrationFormComponent},

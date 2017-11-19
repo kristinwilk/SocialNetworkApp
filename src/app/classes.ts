@@ -10,6 +10,7 @@ export class person {
   public likes: number;
   public text: String;
   public id: number;
+  public Nickname: String;
  }
  export class info {
      public age;
