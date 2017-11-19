@@ -18,3 +18,8 @@ export class person {
      public city;
      public interests: String;
  }
+ export class message {
+    public time;
+    public text: String;
+    public Nickname: String;
+ }

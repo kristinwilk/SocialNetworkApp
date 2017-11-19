@@ -248,4 +248,13 @@ export class MainServiceService {
       }
     }
   }
+  public getNews():any{
+
+  }
+  public getConversations():any{
+
+  }
+  public getMessages():any{
+
+  }
 }
