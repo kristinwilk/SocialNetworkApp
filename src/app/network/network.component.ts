@@ -12,12 +12,18 @@ export class NetworkComponent implements OnInit {
   }
   person;
   isMain = false;
+  isFriends = false;
   ngOnInit():void {
     this.route.params.subscribe(params =>{
       this.person = this.service.getPerson(params['Nickname']);
     });
-    if(this.router.url === '/timeTO/' + this.person.Nickname){
-      this.isMain=true;
+    if(this.person !=null) {
+      if (this.router.url === '/timeTO/' + this.person.Nickname) {
+        this.isMain = true;
+      }
+      if (this.router.url === '/friends/' + this.person.Nickname) {
+        this.isFriends = true;
+      }
     }
   }
 

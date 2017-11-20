@@ -19,6 +19,9 @@ import {AuthGuard} from "./app.guard";
 import {MainServiceService} from "./main-service.service";
 import { FriendComponent } from './network/friends-list/friend/friend.component';
 import { FriendsListComponent } from './network/friends-list/friends-list.component';
+import { SearchComponent } from './network/search/search.component';
+import { SettingsComponent } from './network/settings/settings.component';
+import { PhotosComponent } from './network/photos/photos.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { FriendsListComponent } from './network/friends-list/friends-list.compon
     NetworkComponent,
     PostComponent,
     FriendComponent,
-    FriendsListComponent
+    FriendsListComponent,
+    SearchComponent,
+    SettingsComponent,
+    PhotosComponent
   ],
   imports: [
     BrowserModule,

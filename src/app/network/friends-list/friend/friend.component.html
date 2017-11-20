@@ -1,6 +1,8 @@
 <div class="post" #Friend>
   <a href="/timeTO/Fess">Fess</a>
   <a class="littleAvatar" href="/timeTO/Fess"></a>
-    <br/><button class="postButtons" #DeleteButton (click)="Delete()" id="delete">Remove from list</button>
-    <br/><button class="postButtons" #EditButton (click)="edit()" id="edit">Message</button>
+  <br/>
+  <button class="postButtons"  #Remove (click)="remove()" id="remove">Remove</button>
+  <button class="postButtons"  #Message (click)="message()" id="message">Message</button>
+  <button class="postButtons" #Accept (click)="accept()" id="accept">Accept</button>
 </div>

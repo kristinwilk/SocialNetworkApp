@@ -11,6 +11,7 @@ import {MainServiceService} from "../../../main-service.service";
 export class PageInfoComponent implements OnInit {
   @ViewChild(TextInfoComponent) textInfo : TextInfoComponent;
   isEditing = 'Edit';
+  isInvited = 'Invite';
   constructor(private service: MainServiceService) { }
   @Input() person = new person();
   ngOnInit() {
@@ -18,6 +19,15 @@ export class PageInfoComponent implements OnInit {
       document.getElementById('Edit').style.display = 'none';
       document.getElementById('invite').style.display = 'inline-block';
       document.getElementById('message').style.display = 'inline-block';
+    }
+    let invites = this.service.getAllSentInvites(sessionStorage.getItem("Nickname"));
+    if(invites!=null) {
+      for (let i = 0; i < invites.length; i++) {
+        if (invites[i] == this.person.Nickname) {
+          this.isInvited = 'Cancel invite';
+          break;
+        }
+      }
     }
   }
   edit(){
@@ -28,6 +38,16 @@ export class PageInfoComponent implements OnInit {
     else{
       this.isEditing = 'Edit';
       this.textInfo.endOfEdit();
+    }
+  }
+  invite(){
+    if(this.isInvited=='Cancel invite'){
+      this.service.cancelInvite(this.person.Nickname);
+      this.isInvited='Invite';
+    }
+    else {
+      this.service.inviteFriend(this.person.Nickname);
+      this.isInvited='Cancel invite';
     }
   }
 }

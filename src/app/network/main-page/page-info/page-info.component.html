@@ -4,9 +4,9 @@
 </div>
 <div class="info">
   <app-text-info [person]="person"></app-text-info>
-  <button class="bottomButtons">Friends</button>
-  <button class="bottomButtons" style="left: 29%">Photos</button>
-  <button (click)="edit()" id="Edit" class="bottomButtons" style="left: 51%" name="edit">{{isEditing}}</button>
-  <button class="bottomButtons" id="invite" style="left: 51%;display: none">Invite</button>
-  <button class="bottomButtons" id="message" style="left: 73%;display: none">Message</button>
+  <a href="/friends/{{person.Nickname}}" class="bottomButtons">Friends</a>
+  <a class="bottomButtons" style="left: 29%">Photos</a>
+  <a (click)="edit()" id="Edit" class="bottomButtons" style="left: 51%" name="edit">{{isEditing}}</a>
+  <a (click)="invite()"class="bottomButtons" id="invite" style="left: 51%;display: none">{{isInvited}}</a>
+  <a class="bottomButtons" id="message" style="left: 73%;display: none;">Message</a>
 </div>

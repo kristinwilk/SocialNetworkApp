@@ -20,7 +20,7 @@ export const router : Routes = [
   {path:'storage',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'photos',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'settings',canActivate:[AuthGuard],component:NetworkComponent},
-  {path:'friends',canActivate:[AuthGuard],component:NetworkComponent},
+  {path:'friends/:Nickname',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'messages',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'news',canActivate:[AuthGuard],component:NetworkComponent},
   ];
