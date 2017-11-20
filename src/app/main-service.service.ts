@@ -257,4 +257,29 @@ export class MainServiceService {
   public getMessages():any{
 
   }
+  public getSettings():any{
+    return JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':settings'));
+  }
+  public setSettings(settings):void{
+    localStorage.setItem(sessionStorage.getItem("Nickname")+':settings',JSON.stringify(settings));
+  }
+  public deleteAccount():void{
+    localStorage.removeItem(sessionStorage.getItem("Nickname"));
+    localStorage.removeItem(sessionStorage.getItem("Nickname")+':settings');
+    localStorage.removeItem(sessionStorage.getItem("Nickname")+':followers');
+    localStorage.removeItem(sessionStorage.getItem("Nickname")+':sentInvites');
+    localStorage.removeItem(sessionStorage.getItem("Nickname")+':invites');
+    localStorage.removeItem(sessionStorage.getItem("Nickname")+':friends');
+    localStorage.removeItem(sessionStorage.getItem("Nickname")+':info');
+    localStorage.removeItem(sessionStorage.getItem("Nickname")+':posts');
+    localStorage.removeItem(sessionStorage.getItem("Nickname")+':messages');
+    let persons = JSON.parse(localStorage.getItem('persons'));
+    for(let i = 0;i<persons.length;i++){
+      if(persons[i] == sessionStorage.getItem("Nickname")){
+        persons.splice(i,1);
+        break;
+      }
+    }
+    localStorage.setItem('persons', JSON.stringify(persons));
+  }
 }

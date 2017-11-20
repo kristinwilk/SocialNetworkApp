@@ -13,6 +13,7 @@ export class NetworkComponent implements OnInit {
   person;
   isMain = false;
   isFriends = false;
+  isSettings = false;
   ngOnInit():void {
     this.route.params.subscribe(params =>{
       this.person = this.service.getPerson(params['Nickname']);
@@ -23,6 +24,11 @@ export class NetworkComponent implements OnInit {
       }
       if (this.router.url === '/friends/' + this.person.Nickname) {
         this.isFriends = true;
+      }
+    }
+    else{
+      if (this.router.url === '/settings') {
+        this.isSettings = true;
       }
     }
   }
