@@ -1,7 +1,7 @@
 
 <div class="post" #Post>
   <p><a href="/timeTO/{{Nickname}}">{{Nickname}}</a></p>
-  <a class="littleAvatar" href="/timeTO/{{Nickname}}"></a>
+  <img (click)="location.replace('/timeTO/'+Nickname);" #Avatar src="{{Url}}" class="littleAvatar"/>
   <textarea #TextField id="message" style="resize: none" disabled [ngModel]="post.text" class="message"></textarea>
   <p>{{time}}
   <button class="postButtons" #DeleteButton (click)="Delete()" id="delete"></button>

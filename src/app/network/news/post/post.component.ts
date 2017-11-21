@@ -14,13 +14,18 @@ export class PostComponent implements OnInit {
   @ViewChild('Post') Post:ElementRef;
   @ViewChild('EditButton') EditButton:ElementRef;
   @ViewChild('DeleteButton') DeleteButton:ElementRef;
+  @ViewChild('Avatar') Avatar:ElementRef;
 
   @Input() post = new post();
   @Input() person = new person();
+  Url = "assets/img.Images_Pic_tmp.jpg";
   Nickname;
   time;
   isEditing = false;
   ngOnInit() {
+    if(this.service.getAvatar(this.post.Nickname)!=null){
+      this.Url = this.service.getAvatar(this.post.Nickname);
+    }
     this.Nickname = this.post.Nickname;
     this.time = new Date(this.post.time).toLocaleString();
     if(this.service.isAuthPerson(this.post.Nickname)){

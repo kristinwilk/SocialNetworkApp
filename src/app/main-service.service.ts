@@ -285,7 +285,7 @@ export class MainServiceService {
   public setAvatar(b64image):void{
     localStorage.setItem(sessionStorage.getItem("Nickname")+':avatar', b64image);
   }
-  public getAvatar():any{
-    return localStorage.getItem(sessionStorage.getItem("Nickname")+':avatar');
+  public getAvatar(Nickname):any{
+    return localStorage.getItem(Nickname+':avatar');
   }
 }

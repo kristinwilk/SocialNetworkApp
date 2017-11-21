@@ -15,8 +15,8 @@ export class PageInfoComponent implements OnInit {
   constructor(private service: MainServiceService) { }
   @Input() person = new person();
   ngOnInit() {
-    if(this.service.getAvatar()!=null){
-      document.getElementById('avatar').setAttribute("src",this.service.getAvatar());
+    if(this.service.getAvatar(this.person.Nickname)!=null){
+      document.getElementById('avatar').setAttribute("src",this.service.getAvatar(this.person.Nickname));
     }
     if(!this.service.isAuthPerson(this.person.Nickname)){
       document.getElementById('Edit').style.display = 'none';
@@ -59,11 +59,11 @@ export class PageInfoComponent implements OnInit {
     let input = document.querySelector('input');
     let curFiles = input.files;
     document.getElementById('avatar').setAttribute('src',window.URL.createObjectURL(curFiles[0]));
-    let b64image = this.getBase64Image(document.querySelector('input').files[0]);
+    this.getBase64Image(document.querySelector('input').files[0]);
   }
   getBase64Image(img:File) {
-    var myReader:FileReader = new FileReader();
-    var image = 0;
+    let myReader:FileReader = new FileReader();
+    let image = 0;
     myReader.onloadend = (e) => {
       image = myReader.result;
       this.service.setAvatar(image);
