@@ -282,4 +282,10 @@ export class MainServiceService {
     }
     localStorage.setItem('persons', JSON.stringify(persons));
   }
+  public setAvatar(b64image):void{
+    localStorage.setItem(sessionStorage.getItem("Nickname")+':avatar', b64image);
+  }
+  public getAvatar():any{
+    return localStorage.getItem(sessionStorage.getItem("Nickname")+':avatar');
+  }
 }

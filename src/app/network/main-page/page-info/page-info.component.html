@@ -1,6 +1,8 @@
 <div class="name">
-  <p>{{person?.Name}} {{person?.Nickname}} {{person?.Surname}}</p>
-  <img class="avatar" src="assets/img.Images_Pic_tmp.jpg"/>
+  <p>{{person?.Name}} {{person?.Nickname}} {{person?.Surname}}
+    <input (change)="changeBackground()" style="display: none" type="file"  id="profile_pic" name="profile_pic"
+           accept=".jpg, .jpeg, .png"></p>
+  <img class="avatar" id="avatar" src="assets/img.Images_Pic_tmp.jpg"/>
 </div>
 <div class="info">
   <app-text-info [person]="person"></app-text-info>

@@ -15,6 +15,9 @@ export class PageInfoComponent implements OnInit {
   constructor(private service: MainServiceService) { }
   @Input() person = new person();
   ngOnInit() {
+    if(this.service.getAvatar()!=null){
+      document.getElementById('avatar').setAttribute("src",this.service.getAvatar());
+    }
     if(!this.service.isAuthPerson(this.person.Nickname)){
       document.getElementById('Edit').style.display = 'none';
       document.getElementById('invite').style.display = 'inline-block';
@@ -33,10 +36,12 @@ export class PageInfoComponent implements OnInit {
   edit(){
     if(this.isEditing=='Edit'){
       this.isEditing = 'Ok';
+      document.getElementById('profile_pic').style.display = 'inline-block';
       this.textInfo.edit();
     }
     else{
       this.isEditing = 'Edit';
+      document.getElementById('profile_pic').style.display = 'none';
       this.textInfo.endOfEdit();
     }
   }
@@ -49,5 +54,20 @@ export class PageInfoComponent implements OnInit {
       this.service.inviteFriend(this.person.Nickname);
       this.isInvited='Cancel invite';
     }
+  }
+  changeBackground(){
+    let input = document.querySelector('input');
+    let curFiles = input.files;
+    document.getElementById('avatar').setAttribute('src',window.URL.createObjectURL(curFiles[0]));
+    let b64image = this.getBase64Image(document.querySelector('input').files[0]);
+  }
+  getBase64Image(img:File) {
+    var myReader:FileReader = new FileReader();
+    var image = 0;
+    myReader.onloadend = (e) => {
+      image = myReader.result;
+      this.service.setAvatar(image);
+    };
+    myReader.readAsDataURL(img);
   }
 }
