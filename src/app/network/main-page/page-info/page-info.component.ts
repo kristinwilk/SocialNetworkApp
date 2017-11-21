@@ -12,6 +12,7 @@ export class PageInfoComponent implements OnInit {
   @ViewChild(TextInfoComponent) textInfo : TextInfoComponent;
   isEditing = 'Edit';
   isInvited = 'Invite';
+  isAdded = 'Remove';
   constructor(private service: MainServiceService) { }
   @Input() person = new person();
   ngOnInit() {
@@ -20,7 +21,16 @@ export class PageInfoComponent implements OnInit {
     }
     if(!this.service.isAuthPerson(this.person.Nickname)){
       document.getElementById('Edit').style.display = 'none';
-      document.getElementById('invite').style.display = 'inline-block';
+      if(this.service.hasFriend(this.person.Nickname)){
+        document.getElementById('remove').style.display = 'inline-block';
+      }
+      else if(this.service.hasInvite(this.person.Nickname)){
+        this.isAdded = 'Accept invite';
+        document.getElementById('remove').style.display = 'inline-block';
+      }
+      else {
+        document.getElementById('invite').style.display = 'inline-block';
+      }
       document.getElementById('message').style.display = 'inline-block';
     }
     let invites = this.service.getAllSentInvites(sessionStorage.getItem("Nickname"));
@@ -69,5 +79,15 @@ export class PageInfoComponent implements OnInit {
       this.service.setAvatar(image);
     };
     myReader.readAsDataURL(img);
+  }
+  remove(){
+    if(this.isAdded=='Remove') {
+      this.service.removeFromFriendsList(this.person.Nickname);
+      this.isAdded = 'Accept invite';
+    }
+    else{
+      this.service.addToFriendsList(this.person.Nickname);
+      this.isAdded = 'Remove';
+    }
   }
 }

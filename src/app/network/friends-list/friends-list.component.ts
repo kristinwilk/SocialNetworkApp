@@ -13,11 +13,7 @@ export class FriendsListComponent implements OnInit {
   @Input() person = new person();
 
   ngOnInit() {
-    if(!this.service.isAuthPerson(this.person.Nickname)) {
-      document.getElementById('Search').style.display = 'none';
-      document.getElementById('Invites').style.display = 'none';
-      document.getElementById('Sent invites').style.display = 'none';
-    }
+
   }
 
 }

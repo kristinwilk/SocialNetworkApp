@@ -120,10 +120,10 @@ export class MainServiceService {
     return JSON.parse(localStorage.getItem(Nickname+':friends'));
   }
   public getAllInvites(Nickname):any{
-    return JSON.parse(localStorage.getItem(Nickname+':friends'));
+    return JSON.parse(localStorage.getItem(Nickname+':invites'));
   }
   public getAllSentInvites(Nickname):any{
-    return JSON.parse(localStorage.getItem(Nickname+':friends'));
+    return JSON.parse(localStorage.getItem(Nickname+':sentInvites'));
   }
   public search(Text,type,Nickname):any{
     let persons;
@@ -287,5 +287,29 @@ export class MainServiceService {
   }
   public getAvatar(Nickname):any{
     return localStorage.getItem(Nickname+':avatar');
+  }
+  public hasFriend(Nickname):boolean{
+    let friends = this.getAllFriends(sessionStorage.getItem("Nickname"));
+    if(friends == null){
+      return false;
+    }
+    for(let i = 0;i<friends.length;i++){
+      if(friends[i]==Nickname){
+        return true;
+      }
+    }
+    return false;
+  }
+  public hasInvite(Nickname):boolean{
+    let friends = this.getAllInvites(sessionStorage.getItem("Nickname"));
+    if(friends == null){
+      return false;
+    }
+    for(let i = 0;i<friends.length;i++){
+      if(friends[i]==Nickname){
+        return true;
+      }
+    }
+    return false;
   }
 }
