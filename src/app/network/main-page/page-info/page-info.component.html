@@ -1,15 +1,15 @@
 <div class="name">
   <p>{{person?.Name}} {{person?.Nickname}} {{person?.Surname}}
-    <input (change)="changeBackground()" style="display: none" type="file"  id="profile_pic" name="profile_pic"
+    <input [style.display]="isEditing=='Ok'?'inline-block':'none'" (change)="changeBackground()" style="display: none" type="file"  id="profile_pic" name="profile_pic"
            accept=".jpg, .jpeg, .png"></p>
-  <img class="avatar" id="avatar" src="assets/img.Images_Pic_tmp.jpg"/>
+  <img class="avatar" id="avatar" [src]="src"/>
 </div>
 <div class="info">
   <app-text-info [person]="person"></app-text-info>
   <a href="/friends/{{person.Nickname}}" class="bottomButtons">Friends</a>
   <a class="bottomButtons" style="left: 29%">Photos</a>
-  <a (click)="edit()" id="Edit" class="bottomButtons" style="left: 51%" name="edit">{{isEditing}}</a>
-  <a (click)="invite()"class="bottomButtons" id="invite" style="left: 51%;display: none">{{isInvited}}</a>
-  <a (click)="remove()"class="bottomButtons" id="remove" style="left: 51%;display: none">{{isAdded}}</a>
-  <a class="bottomButtons" id="message" style="left: 73%;display: none;">Message</a>
+  <a [style.display]="Edit" (click)="edit()" id="Edit" class="bottomButtons" style="left: 51%" name="edit">{{isEditing}}</a>
+  <a [style.display]="Invite" (click)="invite()"class="bottomButtons" id="invite" style="left: 51%;display: none">{{isInvited}}</a>
+  <a [style.display]="Remove" (click)="remove()"class="bottomButtons" id="remove" style="left: 51%;display: none">{{isAdded}}</a>
+  <a [style.display]="Message" class="bottomButtons" id="message" style="left: 73%;display: none;">Message</a>
 </div>

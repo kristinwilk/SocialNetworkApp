@@ -13,6 +13,7 @@ export class NetworkComponent implements OnInit {
   person;
   isMain = false;
   isFriends = false;
+  isNews = false;
   isSettings = false;
   ngOnInit():void {
     this.route.params.subscribe(params =>{
@@ -29,6 +30,9 @@ export class NetworkComponent implements OnInit {
     else{
       if (this.router.url === '/settings') {
         this.isSettings = true;
+      }
+      if (this.router.url === '/news') {
+        this.isNews = true;
       }
     }
   }

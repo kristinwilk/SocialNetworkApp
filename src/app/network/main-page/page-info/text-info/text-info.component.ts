@@ -11,7 +11,7 @@ export class TextInfoComponent implements OnInit {
 
   info = new info();
   constructor(private service : MainServiceService) { }
-
+  disabled = true;
   @Input() person = new person();
   ngOnInit() {
     let info =  this.service.getInfo(this.person.Nickname);
@@ -28,17 +28,11 @@ export class TextInfoComponent implements OnInit {
     }
   }
   public edit(){
-    document.getElementById('age').removeAttribute('disabled');
-    document.getElementById('city').removeAttribute('disabled');
-    document.getElementById('phone').removeAttribute('disabled');
-    document.getElementById('interests').removeAttribute('disabled');
+   this.disabled = false;
   }
   public endOfEdit(){
     this.service.changeInfo(JSON.stringify(this.info));
-    document.getElementById('age').setAttribute('disabled','true');
-    document.getElementById('city').setAttribute('disabled','true');
-    document.getElementById('phone').setAttribute('disabled','true');
-    document.getElementById('interests').setAttribute('disabled','true');
+    this.disabled = true;
   }
 
 }

@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {person, post} from "../../../classes";
 import {MainServiceService} from "../../../main-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-post',
@@ -9,7 +10,7 @@ import {MainServiceService} from "../../../main-service.service";
 })
 export class PostComponent implements OnInit {
   //inпut tie file
-  constructor(private service : MainServiceService) { }
+  constructor(private service : MainServiceService,private router:Router) { }
   @ViewChild('TextField') el:ElementRef;
   @ViewChild('Post') Post:ElementRef;
   @ViewChild('EditButton') EditButton:ElementRef;
@@ -22,18 +23,25 @@ export class PostComponent implements OnInit {
   Nickname;
   time;
   isEditing = false;
+
   ngOnInit() {
-    if(this.service.getAvatar(this.post.Nickname)!=null){
-      this.Url = this.service.getAvatar(this.post.Nickname);
-    }
     this.Nickname = this.post.Nickname;
     this.time = new Date(this.post.time).toLocaleString();
-    if(this.service.isAuthPerson(this.post.Nickname)){
-      return;
+    if(this.person!=null) {
+      if (this.service.getAvatar(this.post.Nickname) != null) {
+        this.Url = this.service.getAvatar(this.post.Nickname);
+      }
+      if (this.service.isAuthPerson(this.post.Nickname)) {
+        return;
+      }
+      this.EditButton.nativeElement.style.display = 'none';
+      if (!this.service.isAuthPerson(this.person.Nickname)) {
+        this.DeleteButton.nativeElement.style.display = 'none';
+      }
     }
-    this.EditButton.nativeElement.style.display = 'none';
-    if(!this.service.isAuthPerson(this.person.Nickname)){
+    else{
       this.DeleteButton.nativeElement.style.display = 'none';
+      this.EditButton.nativeElement.style.display = 'none';
     }
   }
   edit(){

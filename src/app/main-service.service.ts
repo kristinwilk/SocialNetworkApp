@@ -103,7 +103,7 @@ export class MainServiceService {
     localStorage.setItem(Nickname +':posts',JSON.stringify(posts));
   }
   public inviteFriend(Nickname):void{
-    if (localStorage.getItem(Nickname + ':invites') == null) {
+    if (localStorage.getItem(Nickname + ':invites') == null||localStorage.getItem(Nickname + ':invites').length==0) {
       let invite = new Array(1);
       invite[0] = sessionStorage.getItem("Nickname");
       localStorage.setItem(Nickname + ':invites', JSON.stringify(invite));
@@ -149,7 +149,7 @@ export class MainServiceService {
     return result;
   }
   public addToFriendsList(Nickname):void{
-    if (localStorage.getItem(Nickname + ':friends') == null) {
+    if (localStorage.getItem(Nickname + ':friends') == null||localStorage.getItem(Nickname + ':friends').length==0) {
       let invite = new Array(1);
       invite[0] = sessionStorage.getItem("Nickname");
       localStorage.setItem(Nickname + ':friends', JSON.stringify(invite));
@@ -159,7 +159,7 @@ export class MainServiceService {
       let invite = oldInvites.concat(sessionStorage.getItem("Nickname"));
       localStorage.setItem(Nickname + ':friends', JSON.stringify(invite));
     }
-    if (localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends') == null) {
+    if (localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends') == null||localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends').length==0) {
       let invite = new Array(1);
       invite[0] = Nickname;
       localStorage.setItem(sessionStorage.getItem("Nickname") + ':friends', JSON.stringify(invite));
@@ -180,7 +180,7 @@ export class MainServiceService {
     this.addSentInvites(Nickname,sessionStorage.getItem("Nickname"));
   }
   public addFollower(Nickname1,Nickname2):void{
-    if (localStorage.getItem(Nickname1 + ':followers') == null) {
+    if (localStorage.getItem(Nickname1 + ':followers') == null||localStorage.getItem(Nickname1 + ':followers').length==0) {
       let invite = new Array(1);
       invite[0] = Nickname2;
       localStorage.setItem(Nickname1 + ':followers', JSON.stringify(invite));
@@ -192,7 +192,7 @@ export class MainServiceService {
     }
   }
   public addSentInvites(Nickname1,Nickname2):void{
-    if (localStorage.getItem(Nickname1 + ':sentInvites') == null) {
+    if (localStorage.getItem(Nickname1 + ':sentInvites') == null||localStorage.getItem(Nickname1 + ':sentInvites').length==0) {
       let invite = new Array(1);
       invite[0] = Nickname2;
       localStorage.setItem(Nickname1 + ':sentInvites', JSON.stringify(invite));
@@ -249,7 +249,19 @@ export class MainServiceService {
     }
   }
   public getNews():any{
-
+    let friends = this.getAllFriends(sessionStorage.getItem("Nickname"));
+    let posts = new Array(0);
+    for(let i = 0;i<friends.length;i++){
+      if(friends[i]!=sessionStorage.getItem("Nickname")){
+        posts = posts.concat(this.getAllPosts(friends[i]));
+      }
+    }
+    for(let i = 0;i<posts.length;i++){
+      if(posts[i].Nickname==sessionStorage.getItem("Nickname")){
+        posts.splice(i,1);
+      }
+    }
+    return posts;
   }
   public getConversations():any{
 
@@ -311,5 +323,14 @@ export class MainServiceService {
       }
     }
     return false;
+  }
+  public setNews():void{
+
+  }
+  public setConversations():void{
+
+  }
+  public setMessages():void{
+
   }
 }

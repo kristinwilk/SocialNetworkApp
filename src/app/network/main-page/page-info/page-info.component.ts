@@ -13,25 +13,30 @@ export class PageInfoComponent implements OnInit {
   isEditing = 'Edit';
   isInvited = 'Invite';
   isAdded = 'Remove';
+  Edit = 'inline-block';
+  Remove = 'none';
+  Invite = 'none';
+  Message = 'none';
+  src ="assets/img.Images_Pic_tmp.jpg";
   constructor(private service: MainServiceService) { }
   @Input() person = new person();
   ngOnInit() {
     if(this.service.getAvatar(this.person.Nickname)!=null){
-      document.getElementById('avatar').setAttribute("src",this.service.getAvatar(this.person.Nickname));
+      this.src = this.service.getAvatar(this.person.Nickname);
     }
     if(!this.service.isAuthPerson(this.person.Nickname)){
-      document.getElementById('Edit').style.display = 'none';
+      this.Edit = 'none';
       if(this.service.hasFriend(this.person.Nickname)){
-        document.getElementById('remove').style.display = 'inline-block';
+        this.Remove = 'inline-block';
       }
       else if(this.service.hasInvite(this.person.Nickname)){
         this.isAdded = 'Accept invite';
-        document.getElementById('remove').style.display = 'inline-block';
+        this.Remove = 'inline-block';
       }
       else {
-        document.getElementById('invite').style.display = 'inline-block';
+        this.Invite = 'inline-block';
       }
-      document.getElementById('message').style.display = 'inline-block';
+      this.Message = 'inline-block';
     }
     let invites = this.service.getAllSentInvites(sessionStorage.getItem("Nickname"));
     if(invites!=null) {
@@ -46,12 +51,10 @@ export class PageInfoComponent implements OnInit {
   edit(){
     if(this.isEditing=='Edit'){
       this.isEditing = 'Ok';
-      document.getElementById('profile_pic').style.display = 'inline-block';
       this.textInfo.edit();
     }
     else{
       this.isEditing = 'Edit';
-      document.getElementById('profile_pic').style.display = 'none';
       this.textInfo.endOfEdit();
     }
   }
@@ -68,7 +71,7 @@ export class PageInfoComponent implements OnInit {
   changeBackground(){
     let input = document.querySelector('input');
     let curFiles = input.files;
-    document.getElementById('avatar').setAttribute('src',window.URL.createObjectURL(curFiles[0]));
+    this.src = window.URL.createObjectURL(curFiles[0]);
     this.getBase64Image(document.querySelector('input').files[0]);
   }
   getBase64Image(img:File) {
