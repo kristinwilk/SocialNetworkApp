@@ -8,5 +8,5 @@
 <button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="invites()" id="Invites">Invites</button>
 <button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="sentInvites()" id="Sent invites">Sent invites</button>
 <div *ngFor="let user of list">
-  <app-friend [type]=type [person]=user></app-friend>
+  <app-friend [person]=user></app-friend>
 </div>

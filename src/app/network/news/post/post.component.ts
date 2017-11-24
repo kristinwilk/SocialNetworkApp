@@ -27,10 +27,11 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.Nickname = this.post.Nickname;
     this.time = new Date(this.post.time).toLocaleString();
+    // this.el.nativeElement.remove();
+    if (this.service.getAvatar(this.post.Nickname) != null) {
+      this.Url = this.service.getAvatar(this.post.Nickname);
+    }
     if(this.person!=null) {
-      if (this.service.getAvatar(this.post.Nickname) != null) {
-        this.Url = this.service.getAvatar(this.post.Nickname);
-      }
       if (this.service.isAuthPerson(this.post.Nickname)) {
         return;
       }

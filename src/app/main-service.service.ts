@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {info, person, post} from "./classes";
+import {templateVisitAll} from "@angular/compiler";
 
 @Injectable()
 export class MainServiceService {
@@ -142,6 +143,49 @@ export class MainServiceService {
         result = result.concat(person.Nickname);
       }
     }
+    if(type == "search") {
+      for (let i = result.length-1; i >= 0; i--) {
+        let invites = JSON.parse(localStorage.getItem(Nickname + ':invites'));
+        let friends = JSON.parse(localStorage.getItem(Nickname + ':friends'));
+        let sentInvites = JSON.parse(localStorage.getItem(Nickname + ':sentInvites'));
+        let followers = JSON.parse(localStorage.getItem(Nickname + ':followers'));
+        if(invites!=null) {
+          for (let j = 0; j < invites.length; j++) {
+            if (result[i] == invites[j]) {
+              result.splice(i, 1);
+              invites.splice(j, 1);
+            }
+          }
+        }
+        if(friends!=null) {
+          for (let j = 0; j < friends.length; j++) {
+            if (result[i] == friends[j]) {
+              result.splice(i, 1);
+              friends.splice(j, 1);
+            }
+          }
+        }
+        if(sentInvites!=null) {
+          for (let j = 0; j < sentInvites.length; j++) {
+            if (result[i] == sentInvites[j]) {
+              result.splice(i, 1);
+              sentInvites.splice(j, 1);
+            }
+          }
+        }
+        if(followers!=null) {
+          for (let j = 0; j < followers.length; j++) {
+            if (result[i] == followers[j]) {
+              result.splice(i, 1);
+              followers.splice(j, 1);
+            }
+          }
+        }
+        if(result[i] == Nickname){
+          result.splice(i,1);
+        }
+        }
+      }
     return result;
   }
   public addToFriendsList(Nickname):void{
@@ -260,9 +304,11 @@ export class MainServiceService {
   public getNews():any{
     let friends = this.getAllFriends(sessionStorage.getItem("Nickname"));
     let posts = new Array(0);
-    for(let i = 0;i<friends.length;i++){
-      if(friends[i]!=sessionStorage.getItem("Nickname")){
-        posts = posts.concat(this.getAllPosts(friends[i]));
+    if(friends!=null) {
+      for (let i = 0; i < friends.length; i++) {
+        if (friends[i] != sessionStorage.getItem("Nickname")) {
+          posts = posts.concat(this.getAllPosts(friends[i]));
+        }
       }
     }
     for(let i = 0;i<posts.length;i++){
@@ -270,6 +316,8 @@ export class MainServiceService {
         posts.splice(i,1);
       }
     }
+    if(localStorage.getItem(sessionStorage.getItem("Nickname")+':otherNews')!=null)
+      posts = posts.concat(JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':otherNews')))
     return posts;
   }
   public getConversations():any{
@@ -304,7 +352,38 @@ export class MainServiceService {
     localStorage.setItem('persons', JSON.stringify(persons));
   }
   public setAvatar(b64image):void{
+    let news = new post();
+    news.Nickname = sessionStorage.getItem("Nickname");
+    news.text = b64image;
+    news.time = new Date();
+    news.id = news.time.valueOf();
     localStorage.setItem(sessionStorage.getItem("Nickname")+':avatar', b64image);
+    let friends = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':friends'));
+    let followers = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':followers'));
+    for(let i = 0;i<friends.length;i++){
+      if(localStorage.getItem(friends[i]+':otherNews')==null){
+        let array = new Array(1);
+        array[0] = news;
+        localStorage.setItem(friends[i]+':otherNews',JSON.stringify(array));
+      }
+      else{
+        let array = JSON.parse(localStorage.getItem(friends[i]+':otherNews'));
+        array = array.concat(news);
+        localStorage.setItem(friends[i]+':otherNews',JSON.stringify(array));
+      }
+    }
+    for(let i = 0;i<followers.length;i++){
+      if(localStorage.getItem(followers[i]+':otherNews')==null){
+        let array = new Array(1);
+        array[0] = news;
+        localStorage.setItem(followers[i]+':otherNews',JSON.stringify(array));
+      }
+      else{
+        let array = JSON.parse(localStorage.getItem(followers[i]+':otherNews'));
+        array = array.concat(news);
+        localStorage.setItem(followers[i]+':otherNews',JSON.stringify(array));
+      }
+    }
   }
   public getAvatar(Nickname):any{
     return localStorage.getItem(Nickname+':avatar');

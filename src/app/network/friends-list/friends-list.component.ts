@@ -2,6 +2,9 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {person} from "../../classes";
 import {MainServiceService} from "../../main-service.service";
 import {literal} from "@angular/compiler/src/output/output_ast";
+import {Observable} from "rxjs/Observable";
+import {TimerObservable} from "rxjs/observable/TimerObservable";
+import {type} from "os";
 
 @Component({
   selector: 'app-friends-list',
@@ -16,27 +19,29 @@ export class FriendsListComponent implements OnInit {
   list;
   type;
   ngOnInit(){
-    this.list = this.service.getAllFriends(this.person.Nickname);
     this.type = 'friend';
+    setInterval(()=>{    //<<<---    using ()=> syntax
+      this.list = this.service.search(this.searchField.nativeElement.value,this.type,this.person.Nickname);
+      if(this.list!=null) {
+        for (let i = 0; i < this.list.length; i++) {
+          this.list[i] = [this.list[i], this.type];
+        }
+      }
+    },100);
   }
   friends(){
-    this.list = this.service.getAllFriends(this.person.Nickname);
     this.type = 'friend';
   }
   invites(){
-    this.list = this.service.getAllInvites(this.person.Nickname);
     this.type = 'invite';
   }
   sentInvites(){
-    this.list = this.service.getAllSentInvites(this.person.Nickname);
     this.type = 'sentInvite';
   }
   followers(){
-    this.list = this.service.getFollowers(this.person.Nickname);
     this.type = 'follower';
   }
   Search(){
-    this.list = null;
     this.type = 'search';
   }
   searchForList(){

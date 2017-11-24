@@ -17,51 +17,47 @@ export class FriendComponent implements OnInit {
   Accept = 'Accept';
   constructor(private service:MainServiceService) { }
   @Input() person = new person();
-  @Input() type;
   ngOnInit() {
-    if(this.type=='friend'){
+    if(this.person[1]=='friend'){
       this.accept.nativeElement.style.display = 'none';
     }
-    if(this.type=='invite'){
+    if(this.person[1]=='invite'){
     }
-    if(this.type=='sentInvites'){
+    if(this.person[1]=='sentInvites'){
       this.accept.nativeElement.style.display = 'none';
       this.Remove = 'Cancel';
     }
-    if(this.type=='follower'){
+    if(this.person[1]=='follower'){
       this.remove.nativeElement.style.display = 'none';
     }
-    if(this.type=='search'){
+    if(this.person[1]=='search'){
       this.remove.nativeElement.style.display = 'none';
       this.Accept = 'Invite';
     }
   }
   removeMethod(){
-    if(this.type=='friend'){
+    if(this.person[1]=='friend'){
       this.service.removeFromFriendsList(this.person);
     }
-    if(this.type=='invite'){
+    if(this.person[1]=='invite'){
       this.service.removeInviteAddFollower(this.service.getMainPerson(),this.person);
     }
-    if(this.type=='sentInvite'){
+    if(this.person[1]=='sentInvite'){
       this.service.cancelInvite(this.person);
     }
   }
   acceptMethod(){
-    if(this.type=='search'){
+    if(this.person[1]=='search'){
       this.service.inviteFriend(this.person);
     }
-    if(this.type=='invite'){
+    if(this.person[1]=='invite'){
       this.service.addToFriendsList(this.person);
     }
-    if(this.type=='follower'){
+    if(this.person[1]=='follower'){
       this.service.addToFriendsList(this.person);
     }
   }
   messageMethod(){
 
-  }
-  set(type){
-    this.type = type;
   }
 }

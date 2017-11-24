@@ -69,9 +69,6 @@ export class PageInfoComponent implements OnInit {
     }
   }
   changeBackground(){
-    let input = document.querySelector('input');
-    let curFiles = input.files;
-    this.src = window.URL.createObjectURL(curFiles[0]);
     this.getBase64Image(document.querySelector('input').files[0]);
   }
   getBase64Image(img:File) {
@@ -80,6 +77,7 @@ export class PageInfoComponent implements OnInit {
     myReader.onloadend = (e) => {
       image = myReader.result;
       this.service.setAvatar(image);
+      this.src = image.toString();
     };
     myReader.readAsDataURL(img);
   }
