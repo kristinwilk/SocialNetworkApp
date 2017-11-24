@@ -1,7 +1,12 @@
-<app-search></app-search>
-<button class="postButtons" (click)="message()" id="Friends">Friends</button>
-<button class="postButtons"  (click)="message()" id="Followers">Followers</button>
-<button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="message()" id="Search">Search</button>
-<button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="message()" id="Invites">Invites</button>
-<button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="message()" id="Sent invites">Sent invites</button>
-<app-friend></app-friend>
+<form action="" method="post" class="search">
+  <input #search (change)="searchForList()" type="search" name="" placeholder="search" class="input" />
+  <input type="submit" name="" value="" class="submit" />
+</form>
+<button class="postButtons" (click)="friends()" id="Friends">Friends</button>
+<button class="postButtons"  (click)="followers()" id="Followers">Followers</button>
+<button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="Search()" id="Search">Search</button>
+<button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="invites()" id="Invites">Invites</button>
+<button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="sentInvites()" id="Sent invites">Sent invites</button>
+<div *ngFor="let user of list">
+  <app-friend [type]=type [person]=user></app-friend>
+</div>

@@ -114,7 +114,6 @@ export class MainServiceService {
       localStorage.setItem(Nickname + ':invites', JSON.stringify(invite));
     }
     this.addSentInvites(sessionStorage.getItem("Nickname"),Nickname);
-    this.addFollower(Nickname,sessionStorage.getItem("Nickname"));
   }
   public getAllFriends(Nickname):any{
     return JSON.parse(localStorage.getItem(Nickname+':friends'));
@@ -127,23 +126,20 @@ export class MainServiceService {
   }
   public search(Text,type,Nickname):any{
     let persons;
-    if(type = 0) {
+    if(type == "search") {
       persons = JSON.parse(localStorage.getItem("persons"));
     }
-    if(type = 1) {
-      persons = JSON.parse(localStorage.getItem(Nickname+':friends'));
+    else {
+      persons = JSON.parse(localStorage.getItem(Nickname+':'+type+'s'));
     }
-    if(type = 2) {
-      persons = JSON.parse(localStorage.getItem(Nickname+':invites'));
+    if(persons == null){
+      return;
     }
-    if(type = 3) {
-      persons = JSON.parse(localStorage.getItem(Nickname+':sentInvites'));
-    }
-    let result = new Array(0);
+    let result = [];
     for(let i = 0;i<persons.length;i++){
       let person = JSON.parse(localStorage.getItem(persons[i]));
       if(person.Nickname.indexOf(Text)!=-1||person.Surname.indexOf(Text)!=-1||person.Name.indexOf(Text)!=-1){
-        result.concat(person);
+        result = result.concat(person.Nickname);
       }
     }
     return result;
@@ -208,7 +204,7 @@ export class MainServiceService {
     for(let i = 0;i < friendsList.length;i++){
       if(friendsList[i]==Nickname2){
         friendsList.splice(i,1);
-        localStorage.setItem(Nickname1+":friends",friendsList);
+        localStorage.setItem(Nickname1+":friends",JSON.stringify(friendsList));
         break;
       }
     }
@@ -220,6 +216,9 @@ export class MainServiceService {
   }
   public removeSentInvite(Nickname1,Nickname2):void{
     let sentInvites = JSON.parse(localStorage.getItem(Nickname1 + ':sentInvites'));
+    if(sentInvites==null){
+      return;
+    }
     for(let i = 0;i<sentInvites.length;i++){
       if(sentInvites[i]==Nickname2){
         sentInvites.splice(i,1);
@@ -230,6 +229,9 @@ export class MainServiceService {
   }
   public removeFollower(Nickname1,Nickname2):void{
     let followers = JSON.parse(localStorage.getItem(Nickname1 + ':followers'));
+    if(followers==null){
+      return;
+    }
     for(let i = 0;i<followers.length;i++){
       if(followers[i]==Nickname2){
         followers.splice(i,1);
@@ -238,8 +240,15 @@ export class MainServiceService {
       }
     }
   }
+  public removeInviteAddFollower(Nickname1,Nickname2):void{
+    this.removeInvite(Nickname1,Nickname2)
+    this.addFollower(Nickname1,Nickname2);
+  }
   public removeInvite(Nickname1,Nickname2):void{
     let invites = JSON.parse(localStorage.getItem(Nickname1 + ':invites'));
+    if(invites==null){
+      return;
+    }
     for(let i = 0;i<invites.length;i++){
       if(invites[i]==Nickname2){
         invites.splice(i,1);
@@ -333,4 +342,8 @@ export class MainServiceService {
   public setMessages():void{
 
   }
+  public getFollowers(Nickname):any{
+    return JSON.parse(localStorage.getItem(Nickname+':followers'));
+  }
+
 }

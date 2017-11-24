@@ -1,8 +1,8 @@
 <div class="post" #Friend>
-  <a href="/timeTO/Fess">Fess</a>
-  <a class="littleAvatar" href="/timeTO/Fess"></a>
+  <a href="/timeTO/{{person}}">{{person}}</a>
+  <a class="littleAvatar" href="/timeTO/{{person}}"></a>
   <br/>
-  <button class="postButtons"  #Remove (click)="remove()" id="remove">Remove</button>
-  <button class="postButtons"  #Message (click)="message()" id="message">Message</button>
-  <button class="postButtons" #Accept (click)="accept()" id="accept">Accept</button>
+  <button class="postButtons"  #remove (click)="removeMethod()" id="remove">{{Remove}}</button>
+  <button class="postButtons"  #message (click)="messageMethod()" id="message">{{Message}}</button>
+  <button class="postButtons" #accept (click)="acceptMethod()" id="accept">{{Accept}}</button>
 </div>
