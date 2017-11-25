@@ -56,13 +56,11 @@ export class MainServiceService {
       let post = new Array(1);
       post[0] = posts;
       localStorage.setItem(person.Nickname + ':posts', JSON.stringify(post));
-      location.replace('/timeTO/'+person.Nickname);
     }
     else {
       let oldPosts = JSON.parse(localStorage.getItem(person.Nickname + ':posts'));
       let post = oldPosts.concat(posts);
       localStorage.setItem(person.Nickname + ':posts', JSON.stringify(post));
-      location.replace('/timeTO/'+person.Nickname);
     }
   }
   public getPerson(Nickname):person{
@@ -384,32 +382,7 @@ export class MainServiceService {
     news.likes = [];
     this.addPost(news,this.getMainPerson());
     localStorage.setItem(sessionStorage.getItem("Nickname")+':avatar', b64image);
-    // let friends = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':friends'));
-    // let followers = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':followers'));
-    // for(let i = 0;i<friends.length;i++){
-    //   if(localStorage.getItem(friends[i]+':otherNews')==null){
-    //     let array = new Array(1);
-    //     array[0] = news;
-    //     localStorage.setItem(friends[i]+':otherNews',JSON.stringify(array));
-    //   }
-    //   else{
-    //     let array = JSON.parse(localStorage.getItem(friends[i]+':otherNews'));
-    //     array = array.concat(news);
-    //     localStorage.setItem(friends[i]+':otherNews',JSON.stringify(array));
-    //   }
-    // }
-    // for(let i = 0;i<followers.length;i++){
-    //   if(localStorage.getItem(followers[i]+':otherNews')==null){
-    //     let array = new Array(1);
-    //     array[0] = news;
-    //     localStorage.setItem(followers[i]+':otherNews',JSON.stringify(array));
-    //   }
-    //   else{
-    //     let array = JSON.parse(localStorage.getItem(followers[i]+':otherNews'));
-    //     array = array.concat(news);
-    //     localStorage.setItem(followers[i]+':otherNews',JSON.stringify(array));
-    //   }
-    // }
+    location.replace('/timeTO/'+sessionStorage.getItem("Nickname"));
   }
   public getAvatar(Nickname):any{
     return localStorage.getItem(Nickname+':avatar');

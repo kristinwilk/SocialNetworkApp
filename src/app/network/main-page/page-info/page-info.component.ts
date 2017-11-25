@@ -55,11 +55,13 @@ export class PageInfoComponent implements OnInit {
     }
     else{
       this.isEditing = 'Edit';
-      let myReader:FileReader = new FileReader();
-      myReader.onloadend = (e) => {
-        this.service.setAvatar(myReader.result);
-      };
-      myReader.readAsDataURL(document.querySelector('input').files[0]);
+      if(document.querySelector('input').files[0]!=null) {
+        let myReader: FileReader = new FileReader();
+        myReader.onloadend = (e) => {
+          this.service.setAvatar(myReader.result);
+        };
+        myReader.readAsDataURL(document.querySelector('input').files[0]);
+      }
       this.textInfo.endOfEdit();
     }
   }
@@ -74,11 +76,13 @@ export class PageInfoComponent implements OnInit {
     }
   }
   changeBackground(){
-    let myReader:FileReader = new FileReader();
-    myReader.onloadend = (e) => {
-      this.src = myReader.result.toString();
-    };
-    myReader.readAsDataURL(document.querySelector('input').files[0]);
+    if(document.querySelector('input').files[0]!=null) {
+      let myReader: FileReader = new FileReader();
+      myReader.onloadend = (e) => {
+        this.src = myReader.result.toString();
+      };
+      myReader.readAsDataURL(document.querySelector('input').files[0]);
+    }
   }
   remove(){
     if(this.isAdded=='Remove') {
