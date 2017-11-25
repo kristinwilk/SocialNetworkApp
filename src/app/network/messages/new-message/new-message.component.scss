@@ -7,7 +7,7 @@ $bgcolor:rgb(215,226,238);
   box-shadow: inset 0 0 50px 30px rgba(0,0,0,0.2);
   background-color: $bgcolor;
   border: 2px solid $mainColor;
-  border-radius: 10px;
+  border-top: none;
   height: 85px;
   width: 70%;
 }
@@ -20,7 +20,6 @@ textarea {
   height: 82px;
   border-right: 2px solid $mainColor;
   background: $bgcolor;
-  border-radius: 10px;
   padding-left: 15px;
   float: left;
   resize: none;
