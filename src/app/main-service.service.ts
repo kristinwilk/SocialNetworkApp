@@ -51,6 +51,7 @@ export class MainServiceService {
     localStorage.setItem(sessionStorage.getItem('Nickname')+':info',info);
   }
   public addPost(posts,person):void{
+    posts.published = person.Nickname;
     if (localStorage.getItem(person.Nickname + ':posts') == null) {
       let post = new Array(1);
       post[0] = posts;
@@ -76,6 +77,29 @@ export class MainServiceService {
   public getMainPerson():person{
     return JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")));
   }
+  public like(post:post):void{
+    if(post.likes!=null) {
+      if (post.likes.indexOf(this.getMainPerson().Nickname) != -1) {
+        post.likes.splice(post.likes.indexOf(this.getMainPerson().Nickname),1);
+      }
+      else{
+        post.likes = post.likes.concat(this.getMainPerson().Nickname);
+      }
+    }
+    else{
+      post.likes = [this.getMainPerson().Nickname];
+    }
+    let posts = JSON.parse(localStorage.getItem(post.published +':posts'));
+    for(let i = 0;i<posts.length;i++){
+      if(posts[i].id == post.id){
+        console.log(post);
+        posts[i] = post;
+        console.log(posts[i]);
+        this.setAllPosts(post.published,posts);
+        return;
+      }
+    }
+  }
   public removePost(post:post,Nickname):void{
     let posts = JSON.parse(localStorage.getItem(Nickname +':posts'));
     for(var i = 0;i<posts.length;i++){
@@ -97,7 +121,7 @@ export class MainServiceService {
       }
     }
   }
-  public getAllPosts(Nickname):post{
+  public getAllPosts(Nickname):any{
     return JSON.parse(localStorage.getItem(Nickname +':posts'));
   }
   public setAllPosts(Nickname,posts):void{
@@ -316,8 +340,8 @@ export class MainServiceService {
         posts.splice(i,1);
       }
     }
-    if(localStorage.getItem(sessionStorage.getItem("Nickname")+':otherNews')!=null)
-      posts = posts.concat(JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':otherNews')))
+    // if(localStorage.getItem(sessionStorage.getItem("Nickname")+':otherNews')!=null)
+    //   posts = posts.concat(JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':otherNews')))
     return posts;
   }
   public getConversations():any{
@@ -357,33 +381,35 @@ export class MainServiceService {
     news.text = b64image;
     news.time = new Date();
     news.id = news.time.valueOf();
+    news.likes = [];
+    this.addPost(news,this.getMainPerson());
     localStorage.setItem(sessionStorage.getItem("Nickname")+':avatar', b64image);
-    let friends = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':friends'));
-    let followers = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':followers'));
-    for(let i = 0;i<friends.length;i++){
-      if(localStorage.getItem(friends[i]+':otherNews')==null){
-        let array = new Array(1);
-        array[0] = news;
-        localStorage.setItem(friends[i]+':otherNews',JSON.stringify(array));
-      }
-      else{
-        let array = JSON.parse(localStorage.getItem(friends[i]+':otherNews'));
-        array = array.concat(news);
-        localStorage.setItem(friends[i]+':otherNews',JSON.stringify(array));
-      }
-    }
-    for(let i = 0;i<followers.length;i++){
-      if(localStorage.getItem(followers[i]+':otherNews')==null){
-        let array = new Array(1);
-        array[0] = news;
-        localStorage.setItem(followers[i]+':otherNews',JSON.stringify(array));
-      }
-      else{
-        let array = JSON.parse(localStorage.getItem(followers[i]+':otherNews'));
-        array = array.concat(news);
-        localStorage.setItem(followers[i]+':otherNews',JSON.stringify(array));
-      }
-    }
+    // let friends = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':friends'));
+    // let followers = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':followers'));
+    // for(let i = 0;i<friends.length;i++){
+    //   if(localStorage.getItem(friends[i]+':otherNews')==null){
+    //     let array = new Array(1);
+    //     array[0] = news;
+    //     localStorage.setItem(friends[i]+':otherNews',JSON.stringify(array));
+    //   }
+    //   else{
+    //     let array = JSON.parse(localStorage.getItem(friends[i]+':otherNews'));
+    //     array = array.concat(news);
+    //     localStorage.setItem(friends[i]+':otherNews',JSON.stringify(array));
+    //   }
+    // }
+    // for(let i = 0;i<followers.length;i++){
+    //   if(localStorage.getItem(followers[i]+':otherNews')==null){
+    //     let array = new Array(1);
+    //     array[0] = news;
+    //     localStorage.setItem(followers[i]+':otherNews',JSON.stringify(array));
+    //   }
+    //   else{
+    //     let array = JSON.parse(localStorage.getItem(followers[i]+':otherNews'));
+    //     array = array.concat(news);
+    //     localStorage.setItem(followers[i]+':otherNews',JSON.stringify(array));
+    //   }
+    // }
   }
   public getAvatar(Nickname):any{
     return localStorage.getItem(Nickname+':avatar');

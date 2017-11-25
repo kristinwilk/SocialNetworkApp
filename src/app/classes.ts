@@ -7,10 +7,11 @@ export class person {
 }
  export class post {
   public time;
-  public likes: number;
+  public likes;
   public text: String;
   public id: number;
   public Nickname: String;
+  public published: String;
  }
  export class info {
      public age;

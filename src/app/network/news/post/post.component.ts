@@ -2,6 +2,7 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {person, post} from "../../../classes";
 import {MainServiceService} from "../../../main-service.service";
 import {Router} from "@angular/router";
+import {count} from "rxjs/operators";
 
 @Component({
   selector: 'app-post',
@@ -9,7 +10,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  //inпut tie file
   constructor(private service : MainServiceService,private router:Router) { }
   @ViewChild('TextField') el:ElementRef;
   @ViewChild('Post') Post:ElementRef;
@@ -27,11 +27,20 @@ export class PostComponent implements OnInit {
   time;
   isEditing = false;
   src;
+  count = 0;
+  Like = 'assets/notLiked.png';
   Height = 150;
   ngOnInit() {
+    if(this.post.likes!=null) {
+      this.count = this.post.likes.length;
+      if (this.post.likes.indexOf(this.service.getMainPerson().Nickname) != -1) {
+        this.Like = 'assets/liked.png';
+      }
+    }
     this.Nickname = this.post.Nickname;
     this.time = new Date(this.post.time).toLocaleString();
     if(this.post.text.indexOf("data:image/png;base64,")!=-1){
+      this.EditButton.nativeElement.style.display = 'none';
       this.el.nativeElement.remove();
       this.isAvatar  = ' has changed his avatar:';
       this.src = this.post.text;
@@ -75,5 +84,16 @@ export class PostComponent implements OnInit {
   }
   changeLocation(){
     this.A.nativeElement.click();
+  }
+  like(){
+    this.service.like(this.post);
+    if(this.Like == 'assets/liked.png'){
+      this.Like = 'assets/notLiked.png';
+      this.count--;
+    }
+    else {
+      this.Like = 'assets/liked.png';
+      this.count++;
+    }
   }
 }

@@ -6,6 +6,8 @@
   <img #BigAvatar src="{{src}}" width="350" height="350"/>
   <p>{{time}}
   <button class="postButtons" #DeleteButton (click)="Delete()" id="delete"></button>
-  <button class="postButtons" #EditButton (click)="edit()" id="edit"></button>
+    <button class="postButtons" #EditButton (click)="edit()" id="edit"></button>
+    <img src="{{Like}}" #LikeButton (click)="like()" id="like"/>
+    <i id="count">{{count}}</i>
   </p>
 </div>

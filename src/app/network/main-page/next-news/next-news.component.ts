@@ -18,6 +18,7 @@ export class NextNewsComponent implements OnInit {
       this.posts.time = new Date();
       this.posts.id = this.posts.time.valueOf();
       this.posts.Nickname = this.service.getMainPerson().Nickname;
+      this.posts.likes = [];
       this.service.addPost(this.posts,this.person);
     }
   }

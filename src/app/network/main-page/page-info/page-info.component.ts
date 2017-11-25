@@ -55,6 +55,11 @@ export class PageInfoComponent implements OnInit {
     }
     else{
       this.isEditing = 'Edit';
+      let myReader:FileReader = new FileReader();
+      myReader.onloadend = (e) => {
+        this.service.setAvatar(myReader.result);
+      };
+      myReader.readAsDataURL(document.querySelector('input').files[0]);
       this.textInfo.endOfEdit();
     }
   }
@@ -69,17 +74,11 @@ export class PageInfoComponent implements OnInit {
     }
   }
   changeBackground(){
-    this.getBase64Image(document.querySelector('input').files[0]);
-  }
-  getBase64Image(img:File) {
     let myReader:FileReader = new FileReader();
-    let image = 0;
     myReader.onloadend = (e) => {
-      image = myReader.result;
-      this.service.setAvatar(image);
-      this.src = image.toString();
+      this.src = myReader.result.toString();
     };
-    myReader.readAsDataURL(img);
+    myReader.readAsDataURL(document.querySelector('input').files[0]);
   }
   remove(){
     if(this.isAdded=='Remove') {
