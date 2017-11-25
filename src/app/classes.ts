@@ -22,5 +22,10 @@ export class person {
 export class message {
   public time;
   public text: String;
-  public Nickname: String;
+  public img;
+}
+export class conversation {
+  public Nickname: string;
+  public count: number;
+  public messages;
 }

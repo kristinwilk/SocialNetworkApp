@@ -15,6 +15,8 @@ export class NetworkComponent implements OnInit {
   isFriends = false;
   isNews = false;
   isSettings = false;
+  isMessages = false;
+  isStorage = false;
   ngOnInit():void {
     this.route.params.subscribe(params =>{
       this.person = this.service.getPerson(params['Nickname']);
@@ -33,6 +35,12 @@ export class NetworkComponent implements OnInit {
       }
       if (this.router.url === '/news') {
         this.isNews = true;
+      }
+      if (this.router.url === '/messages') {
+        this.isMessages = true;
+      }
+      if (this.router.url === '/storage') {
+        this.isStorage = true;
       }
     }
   }

@@ -21,7 +21,11 @@ import { FriendComponent } from './network/friends-list/friend/friend.component'
 import { FriendsListComponent } from './network/friends-list/friends-list.component';
 import { SearchComponent } from './network/search/search.component';
 import { SettingsComponent } from './network/settings/settings.component';
-import { PhotosComponent } from './network/photos/photos.component';
+import { ConversationsComponent } from './network/messages/conversations/conversations.component';
+import { DialogComponent } from './network/messages/conversations/dialog/dialog.component';
+import { MessageComponent } from './network/messages/conversations/dialog/message/message.component';
+import { MessagesComponent } from './network/messages/messages.component';
+import { NewMessageComponent } from './network/messages/new-message/new-message.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,11 @@ import { PhotosComponent } from './network/photos/photos.component';
     FriendsListComponent,
     SearchComponent,
     SettingsComponent,
-    PhotosComponent
+    ConversationsComponent,
+    DialogComponent,
+    MessageComponent,
+    MessagesComponent,
+    NewMessageComponent
   ],
   imports: [
     BrowserModule,
