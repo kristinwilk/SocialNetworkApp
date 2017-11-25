@@ -1,8 +1,9 @@
 
-<div class="post" #Post>
-  <p><a href="/timeTO/{{Nickname}}">{{Nickname}}</a></p>
-  <img (click)="router.navigate(['/timeTO/'+Nickname]);" #Avatar src="{{Url}}" class="littleAvatar"/>
+<div class="post" #Post [style.height.px]="Height" >
+  <p><a #A href="/timeTO/{{Nickname}}">{{Nickname}}</a>{{isAvatar}}</p>
+  <img (click)="changeLocation()" #Avatar src="{{Url}}" class="littleAvatar"/>
   <textarea #TextField id="message" style="resize: none" disabled [ngModel]="post.text" class="message"></textarea>
+  <img #BigAvatar src="{{src}}" width="350" height="350"/>
   <p>{{time}}
   <button class="postButtons" #DeleteButton (click)="Delete()" id="delete"></button>
   <button class="postButtons" #EditButton (click)="edit()" id="edit"></button>

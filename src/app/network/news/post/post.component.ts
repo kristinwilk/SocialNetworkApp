@@ -16,18 +16,30 @@ export class PostComponent implements OnInit {
   @ViewChild('EditButton') EditButton:ElementRef;
   @ViewChild('DeleteButton') DeleteButton:ElementRef;
   @ViewChild('Avatar') Avatar:ElementRef;
+  @ViewChild('BigAvatar') BigAvatar:ElementRef;
+  @ViewChild('A') A:ElementRef;
 
   @Input() post = new post();
   @Input() person = new person();
   Url = "assets/img.Images_Pic_tmp.jpg";
   Nickname;
+  isAvatar  = '';
   time;
   isEditing = false;
-
+  src;
+  Height = 150;
   ngOnInit() {
     this.Nickname = this.post.Nickname;
     this.time = new Date(this.post.time).toLocaleString();
-    // this.el.nativeElement.remove();
+    if(this.post.text.indexOf("data:image/png;base64,")!=-1){
+      this.el.nativeElement.remove();
+      this.isAvatar  = ' has changed his avatar:';
+      this.src = this.post.text;
+      this.Height = 405;
+    }
+    else {
+      this.BigAvatar.nativeElement.remove();
+    }
     if (this.service.getAvatar(this.post.Nickname) != null) {
       this.Url = this.service.getAvatar(this.post.Nickname);
     }
@@ -60,5 +72,8 @@ export class PostComponent implements OnInit {
   Delete(){
     this.service.removePost(this.post,this.person.Nickname);
     this.Post.nativeElement.remove();
+  }
+  changeLocation(){
+    this.A.nativeElement.click();
   }
 }

@@ -1,6 +1,6 @@
 <div class="post" #Friend>
   <a href="/timeTO/{{person[0]}}">{{person[0]}}</a>
-  <a class="littleAvatar" href="/timeTO/{{person[0]}}"></a>
+  <img (click)="router.navigate(['/timeTO/'+person[0]]);" src="{{Url}}" class="littleAvatar" />
   <br/>
   <button class="postButtons"  #remove (click)="removeMethod()" id="remove">{{Remove}}</button>
   <button class="postButtons"  #message (click)="messageMethod()" id="message">{{Message}}</button>

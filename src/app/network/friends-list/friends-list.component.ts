@@ -16,18 +16,31 @@ export class FriendsListComponent implements OnInit {
   @ViewChild('search') searchField:ElementRef;
   constructor(private service: MainServiceService) { }
   @Input() person = new person();
-  list;
+  list =  null;
   type;
+  isAuth = true;
   ngOnInit(){
+    if(!this.service.isAuthPerson(this.person.Nickname)){
+      this.isAuth = false;
+    }
     this.type = 'friend';
-    setInterval(()=>{    //<<<---    using ()=> syntax
-      this.list = this.service.search(this.searchField.nativeElement.value,this.type,this.person.Nickname);
-      if(this.list!=null) {
-        for (let i = 0; i < this.list.length; i++) {
-          this.list[i] = [this.list[i], this.type];
+    setInterval(()=>{
+      let newList = this.service.search(this.searchField.nativeElement.value,this.type,this.person.Nickname);
+      if(this.list==null||newList==null||!this.compare(newList,this.list)) {
+        this.list = newList;
+        if (this.list != null) {
+          for (let i = 0; i < this.list.length; i++) {
+            this.list[i] = [this.list[i], this.type];
+          }
         }
       }
     },100);
+  }
+  compare(a2, a1) {
+    function eq(a1, a2){
+      return(a1[0]==a2);
+    }
+    return a1.length == a2.length && a1.every((v,i)=>eq(v,a2[i]));
   }
   friends(){
     this.type = 'friend';

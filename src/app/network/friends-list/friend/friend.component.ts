@@ -2,6 +2,7 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {person} from "../../../classes";
 import {MainServiceService} from "../../../main-service.service";
 import {type} from "os";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-friend',
@@ -15,15 +16,20 @@ export class FriendComponent implements OnInit {
   Remove = 'Remove';
   Message = 'Message';
   Accept = 'Accept';
-  constructor(private service:MainServiceService) { }
+  Url = "assets/img.Images_Pic_tmp.jpg";
+  constructor(private service:MainServiceService,private router:Router) { }
   @Input() person = new person();
+  @Input() isAuth;
   ngOnInit() {
+    if (this.service.getAvatar(this.person[0]) != null) {
+      this.Url = this.service.getAvatar(this.person[0]);
+    }
     if(this.person[1]=='friend'){
       this.accept.nativeElement.style.display = 'none';
     }
     if(this.person[1]=='invite'){
     }
-    if(this.person[1]=='sentInvites'){
+    if(this.person[1]=='sentInvite'){
       this.accept.nativeElement.style.display = 'none';
       this.Remove = 'Cancel';
     }
@@ -34,27 +40,32 @@ export class FriendComponent implements OnInit {
       this.remove.nativeElement.style.display = 'none';
       this.Accept = 'Invite';
     }
+    if(this.isAuth==0){
+      this.remove.nativeElement.style.display = 'none';
+      this.accept.nativeElement.style.display = 'none';
+      this.message.nativeElement.style.display = 'none';
+    }
   }
   removeMethod(){
     if(this.person[1]=='friend'){
-      this.service.removeFromFriendsList(this.person);
+      this.service.removeFromFriendsList(this.person[0]);
     }
     if(this.person[1]=='invite'){
-      this.service.removeInviteAddFollower(this.service.getMainPerson(),this.person);
+      this.service.removeInviteAddFollower(this.service.getMainPerson(),this.person[0]);
     }
     if(this.person[1]=='sentInvite'){
-      this.service.cancelInvite(this.person);
+      this.service.cancelInvite(this.person[0]);
     }
   }
   acceptMethod(){
     if(this.person[1]=='search'){
-      this.service.inviteFriend(this.person);
+      this.service.inviteFriend(this.person[0]);
     }
     if(this.person[1]=='invite'){
-      this.service.addToFriendsList(this.person);
+      this.service.addToFriendsList(this.person[0]);
     }
     if(this.person[1]=='follower'){
-      this.service.addToFriendsList(this.person);
+      this.service.addToFriendsList(this.person[0]);
     }
   }
   messageMethod(){
