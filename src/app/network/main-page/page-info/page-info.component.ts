@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {TextInfoComponent} from "./text-info/text-info.component";
 import {person, post} from "../../../classes";
 import {MainServiceService} from "../../../main-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-page-info',
@@ -18,7 +19,7 @@ export class PageInfoComponent implements OnInit {
   Invite = 'none';
   Message = 'none';
   src ="assets/img.Images_Pic_tmp.jpg";
-  constructor(private service: MainServiceService) { }
+  constructor(private service: MainServiceService,private router:Router) { }
   @Input() person = new person();
   ngOnInit() {
     if(this.service.getAvatar(this.person.Nickname)!=null){
@@ -93,5 +94,8 @@ export class PageInfoComponent implements OnInit {
       this.service.addToFriendsList(this.person.Nickname);
       this.isAdded = 'Remove';
     }
+  }
+  message(){
+    this.router.navigate(['/messages/'+this.person.Nickname]);
   }
 }

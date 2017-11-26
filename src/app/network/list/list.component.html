@@ -2,9 +2,9 @@
 <h1>Time to!</h1>
   <a href="/timeTO/{{person.Nickname}}" class="leftButtons">My page</a>
   <a href="/news" class="leftButtons">News</a>
-  <a href="/messages" class="leftButtons">Messages</a>
+  <a href="/messages" class="leftButtons">Messages <i>{{CountMessages}}</i></a>
   <a href="/storage" class="leftButtons">Storage</a>
-  <a href="/friends/{{person.Nickname}}" class="leftButtons">Friends</a>
+  <a href="/friends/{{person.Nickname}}" class="leftButtons">Friends <i>{{CountInvites}}</i></a>
   <a href="/settings" class="leftButtons">Settings</a>
   <a href="/signIn" class="leftButtons" (click)="out()">Out</a>
 </div>

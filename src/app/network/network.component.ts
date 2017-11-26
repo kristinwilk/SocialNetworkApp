@@ -28,6 +28,9 @@ export class NetworkComponent implements OnInit {
       if (this.router.url === '/friends/' + this.person.Nickname) {
         this.isFriends = true;
       }
+      if (this.router.url === '/messages/' + this.person.Nickname) {
+        this.isMessages = true;
+      }
     }
     else{
       if (this.router.url === '/settings') {

@@ -8,7 +8,7 @@
   <app-text-info [person]="person"></app-text-info>
   <a href="/friends/{{person.Nickname}}" class="bottomButtons">Friends</a>
   <a [style.display]="Edit" (click)="edit()" id="Edit" class="bottomButtons" style="left: 29%" name="edit">{{isEditing}}</a>
-  <a [style.display]="Invite" (click)="invite()"class="bottomButtons" id="invite" style="left: 29%;display: none">{{isInvited}}</a>
-  <a [style.display]="Remove" (click)="remove()"class="bottomButtons" id="remove" style="left: 29%;display: none">{{isAdded}}</a>
-  <a [style.display]="Message" class="bottomButtons" id="message" style="left: 51%;display: none;">Message</a>
+  <a [style.display]="Invite" (click)="invite()" class="bottomButtons" id="invite" style="left: 29%;display: none">{{isInvited}}</a>
+  <a [style.display]="Remove" (click)="remove()" class="bottomButtons" id="remove" style="left: 29%;display: none">{{isAdded}}</a>
+  <a [style.display]="Message" (click)="message()" class="bottomButtons" id="message" style="left: 51%;display: none;">Message</a>
 </div>

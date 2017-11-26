@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {conversation, info, person, post} from "./classes";
 import {templateVisitAll} from "@angular/compiler";
+import {type} from "os";
 
 @Injectable()
 export class MainServiceService {
@@ -211,21 +212,15 @@ export class MainServiceService {
     return result;
   }
   public addToFriendsList(Nickname):void{
-    if (localStorage.getItem(Nickname + ':friends') == null||localStorage.getItem(Nickname + ':friends').length==0) {
-      let invite = new Array(1);
-      invite[0] = sessionStorage.getItem("Nickname");
-      localStorage.setItem(Nickname + ':friends', JSON.stringify(invite));
-    }
+    if (localStorage.getItem(Nickname + ':friends') == null||localStorage.getItem(Nickname + ':friends').length==0)
+      localStorage.setItem(Nickname + ':friends', JSON.stringify([sessionStorage.getItem("Nickname")]));
     else {
       let oldInvites = JSON.parse(localStorage.getItem(Nickname + ':friends'));
       let invite = oldInvites.concat(sessionStorage.getItem("Nickname"));
       localStorage.setItem(Nickname + ':friends', JSON.stringify(invite));
     }
-    if (localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends') == null||localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends').length==0) {
-      let invite = new Array(1);
-      invite[0] = Nickname;
-      localStorage.setItem(sessionStorage.getItem("Nickname") + ':friends', JSON.stringify(invite));
-    }
+    if (localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends') == null||localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends').length==0)
+      localStorage.setItem(sessionStorage.getItem("Nickname") + ':friends', JSON.stringify([Nickname]));
     else {
       let oldInvites = JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname") + ':friends'));
       let invite = oldInvites.concat(Nickname);
@@ -307,11 +302,11 @@ export class MainServiceService {
     }
   }
   public removeInviteAddFollower(Nickname1,Nickname2):void{
-    this.removeInvite(Nickname1,Nickname2)
+    this.removeInvite(Nickname1,Nickname2);
     this.addFollower(Nickname1,Nickname2);
   }
   public removeInvite(Nickname1,Nickname2):void{
-    let invites = JSON.parse(localStorage.getItem(Nickname1 + ':invites'));
+    let invites = this.getAllInvites(Nickname1);
     if(invites==null){
       return;
     }
@@ -418,25 +413,39 @@ export class MainServiceService {
     localStorage.setItem(Nickname+":conversations",JSON.stringify(conversations));
   }
   public getConversations(Nickname):any{
-    return JSON.parse(localStorage.getItem(Nickname+":conversations"));
+    function compare(conversations2,conversations1){
+      if(conversations1.messages==null&&conversations2.messages==null)
+        return 0;
+      if(conversations1.messages==null)
+        return -1;
+      if(conversations2.messages==null)
+        return 1;
+      return Date.parse(conversations1.messages[conversations1.messages.length-1].time) - Date.parse(conversations2.messages[conversations2.messages.length-1].time.valueOf());
+    }
+    let conversations =  JSON.parse(localStorage.getItem(Nickname+":conversations"));
+    if(conversations!=null) conversations.sort(compare);
+
+    return conversations;
   }
   public hasConversation(Nickname):boolean{
     let conversations = this.getConversations(sessionStorage.getItem("Nickname"));
     if(conversations== null)
       return false;
     for(let i = 0;i < conversations.length;i++){
-      if(conversations[i].Nickname = Nickname)
+      if(conversations[i].Nickname == Nickname)
         return true;
     }
     return false;
   }
   public conversationChecked(Nickname):void{
     let conversations = this.getConversations(sessionStorage.getItem('Nickname'));
-    for(let i = 0;i < conversations.length;i++){
-      if(conversations[i].Nickname == Nickname) {
-        conversations[i].Count = 0;
-        this.setConversations(sessionStorage.getItem('Nickname'),conversations);
-        return;
+    if(conversations!=null) {
+      for (let i = 0; i < conversations.length; i++) {
+        if (conversations[i].Nickname == Nickname) {
+          conversations[i].Count = 0;
+          this.setConversations(sessionStorage.getItem('Nickname'), conversations);
+          return;
+        }
       }
     }
   }
@@ -498,5 +507,51 @@ export class MainServiceService {
   public getFollowers(Nickname):any{
     return JSON.parse(localStorage.getItem(Nickname+':followers'));
   }
-
+  public searchConversations(Text):any{
+    let conversations = this.getConversations(sessionStorage.getItem("Nickname"));
+    let persons = this.search(Text,'friend',sessionStorage.getItem("Nickname"));
+    if(persons==null||persons.length==0){
+      persons = this.search(Text,'search',sessionStorage.getItem("Nickname"));
+      if(persons==null)
+        return null;
+    }
+    let result = [];
+    if(conversations!=null) {
+      for (let i = 0; i < conversations.length; i++) {
+        if (persons.indexOf(conversations[i].Nickname) != -1) {
+          result = result.concat(conversations[i]);
+        }
+      }
+    }
+    if(result.length!=0) {
+      return result;
+    }
+    else {
+      for(let i = 0;i<persons.length;i++) {
+        let conv = new conversation();
+        conv.Nickname = persons[i];
+        conv.messages = [];
+        conv.Count = 0;
+        result = result.concat(conv);
+      }
+      return result;
+    }
+  }
+  public getCountOfInvites():any{
+    let invites = this.getAllInvites(sessionStorage.getItem("Nickname"));
+    if(invites==null)
+      return 0;
+    return invites.length;
+  }
+  public getCountOfNewMessages():any{
+    let conversations = this.getConversations(sessionStorage.getItem("Nickname"));
+    if( conversations==null)
+      return 0;
+    let result = 0;
+    for(let i = 0;i<conversations.length;i++){
+       if(conversations[i].Count!=0)
+         result++;
+    }
+    return result;
+  }
 }

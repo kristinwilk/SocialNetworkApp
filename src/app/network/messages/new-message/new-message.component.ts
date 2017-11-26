@@ -18,7 +18,7 @@ export class NewMessageComponent implements OnInit {
   addMessage(){
     let mess = new message();
     mess.Nickname = this.service.getMainPerson().Nickname;
-    mess.time = new Date().toLocaleString();
+    mess.time = new Date();
     mess.text = this.Text;
     this.Text = '';
     this.text.nativeElement.value  = '';

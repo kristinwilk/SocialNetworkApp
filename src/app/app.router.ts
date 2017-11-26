@@ -22,6 +22,7 @@ export const router : Routes = [
   {path:'settings',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'friends/:Nickname',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'messages',canActivate:[AuthGuard],component:NetworkComponent},
+  {path:'messages/:Nickname',canActivate:[AuthGuard],component:NetworkComponent},
   {path:'news',canActivate:[AuthGuard],component:NetworkComponent},
   ];
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);

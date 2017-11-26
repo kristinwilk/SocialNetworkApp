@@ -1,5 +1,5 @@
 <div class="post" #Post >
-  <p><a #A href="/timeTO/{{message.Nickname}}">{{message.Nickname}}</a> {{message.time}}</p>
+  <p><a #A href="/timeTO/{{message.Nickname}}">{{message.Nickname}}</a> {{message.time.toLocaleString()}}</p>
   <img (click)="changeLocation()" #Avatar src="{{Url}}" class="littleAvatar"/>
   <p #TextField id="message" class="message">{{message.text}}</p>
   <!--<img #image src="{{message.img}}" width="350" height="350"/>-->

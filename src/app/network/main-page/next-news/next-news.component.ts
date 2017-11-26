@@ -20,6 +20,7 @@ export class NextNewsComponent implements OnInit {
       this.posts.Nickname = this.service.getMainPerson().Nickname;
       this.posts.likes = [];
       this.service.addPost(this.posts,this.person);
+      this.posts.text = '';
     }
   }
 }

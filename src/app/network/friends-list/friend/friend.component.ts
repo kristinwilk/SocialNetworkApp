@@ -51,7 +51,7 @@ export class FriendComponent implements OnInit {
       this.service.removeFromFriendsList(this.person[0]);
     }
     if(this.person[1]=='invite'){
-      this.service.removeInviteAddFollower(this.service.getMainPerson(),this.person[0]);
+      this.service.removeInviteAddFollower(this.service.getMainPerson().Nickname,this.person[0]);
     }
     if(this.person[1]=='sentInvite'){
       this.service.cancelInvite(this.person[0]);
@@ -69,6 +69,6 @@ export class FriendComponent implements OnInit {
     }
   }
   messageMethod(){
-
+    this.router.navigate(['/messages/'+this.person[0]]);
   }
 }
