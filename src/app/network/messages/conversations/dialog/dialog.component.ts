@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MainServiceService} from "../../../../main-service.service";
+import {setTimeout} from "timers";
 
 @Component({
   selector: 'app-dialog',
@@ -9,20 +10,26 @@ import {MainServiceService} from "../../../../main-service.service";
 export class DialogComponent implements OnInit {
 
   constructor(private service:MainServiceService) { }
+  @ViewChild('dialog') dialog:ElementRef;
   @Input() Nickname;
   messages;
 
   ngOnInit() {
+    function compare(a1, a2) {
+      function eq(a1, a2){
+          return(a1.time.valueOf()==a2.time.valueOf()&&a1.Nickname==a2.Nickname&&a1.text==a2.text);
+      }
+      return a1.length == a2.length && a1.every((v,i)=>eq(v,a2[i]));
+    }
     setInterval(()=>{
-      this.messages = this.service.getMessages(this.Nickname);
-      // if(this.messages==null||newList==null||!this.compare(newList,this.list)) {
-      //   this.list = newList;
-      //   if (this.list != null) {
-      //     for (let i = 0; i < this.list.length; i++) {
-      //       this.list[i] = [this.list[i], this.type];
-      //     }
-      //   }
-      // }
-    },100);
+      let newList = this.service.getMessages(this.Nickname);
+      if(this.messages==null||newList==null||!compare(newList,this.messages)) {
+        this.messages = newList;
+        this.service.conversationChecked(this.Nickname);
+        setTimeout(()=> {
+          this.dialog.nativeElement.scrollTo(0, this.dialog.nativeElement.scrollHeight * 2);
+        },1);
+      }
+    },1);
   }
 }

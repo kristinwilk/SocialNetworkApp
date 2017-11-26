@@ -10,13 +10,10 @@ export class MessageComponent implements OnInit {
   @ViewChild('Avatar') Avatar:ElementRef;
   @ViewChild('image') image:ElementRef;
   @ViewChild('Post') Post:ElementRef;
+  @ViewChild('TextField') TextField:ElementRef;
   @Input() message = new message();
-  text = 'dssdasdasdsad';
   constructor() { }
   Url = 'assets/img.Images_Pic_tmp.jpg';
   ngOnInit() {
-    //this.image.nativeElement.remove();
-    this.Post.nativeElement.style.height = '100px';
   }
-
 }

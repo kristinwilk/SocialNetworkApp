@@ -18,9 +18,9 @@ export class ConversationsComponent implements OnInit {
   ngOnInit() {
     if(this.conversation.Count!=0){
       if(this.conversation.Count==1)
-        this.word = '1 message';
+        this.word = '1 new message';
       else
-        this.word = this.conversation.Count + ' messages';
+        this.word = this.conversation.Count + ' new messages';
       this.Conversation.nativeElement.style.backgroundColor = 'rgb(125,133,152)';
     }
   }
