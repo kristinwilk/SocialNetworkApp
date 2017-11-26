@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MainServiceService} from "../../main-service.service";
 
 @Component({
   selector: 'app-messages',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagesComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private service:MainServiceService) { }
+  conversations;
+  isChosenDialog = false;
+  Nickname;
   ngOnInit() {
+    this.conversations = this.service.getConversations(this.service.getMainPerson().Nickname);
   }
+  showMessages(Nickname){
+    this.isChosenDialog = true;
+    this.Nickname = Nickname;
 
+  }
 }

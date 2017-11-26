@@ -1,26 +1,4 @@
 $mainColor: rgb(64,73,82);
-.post {
-  width:100%;
-  background:rgb(205,216,228);
-  height:80px;
-  overflow: auto;
-  -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-  -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-  box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-}
-.littleAvatar {
-  background-image: url("assets/img.Images_Pic_tmp.jpg");
-  background-size: cover;
-  height: 60px;
-  width: 50px;
-  float:left;
-  border: 2px solid $mainColor;
-  margin: 7px 7px 7px 7px;
-}
-i {
-  margin-right: 10px;
-  float: right;
-}
 #all::-webkit-scrollbar{
   width: 0;
 }

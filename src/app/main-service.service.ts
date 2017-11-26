@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {info, person, post} from "./classes";
+import {conversation, info, person, post} from "./classes";
 import {templateVisitAll} from "@angular/compiler";
 
 @Injectable()
@@ -342,12 +342,6 @@ export class MainServiceService {
     //   posts = posts.concat(JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':otherNews')))
     return posts;
   }
-  public getConversations():any{
-
-  }
-  public getMessages():any{
-
-  }
   public getSettings():any{
     return JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':settings'));
   }
@@ -411,14 +405,95 @@ export class MainServiceService {
     }
     return false;
   }
-  public setNews():void{
+  public addConversation(Nickname,conversation):void{
+    let conversations = this.getConversations(Nickname);
+    if(conversations== null){
+      this.setConversations(Nickname,[conversation]);
+    }
+    else {
+      this.setConversations(Nickname,conversations.concat(conversation));
+    }
+  }
+  public setConversations(Nickname,conversations):void{
+    localStorage.setItem(Nickname+":conversations",JSON.stringify(conversations));
+  }
+  public getConversations(Nickname):any{
+    return JSON.parse(localStorage.getItem(Nickname+":conversations"));
+  }
+  public hasConversation(Nickname):boolean{
+    let conversations = this.getConversations(sessionStorage.getItem("Nickname"));
+    if(conversations== null)
+      return false;
+    for(let i = 0;i < conversations.length;i++){
+      if(conversations[i].Nickname = Nickname)
+        return true;
+    }
+    return false;
+  }
+  public conversationChecked(Nickname):void{
+    let conversations = this.getConversations(sessionStorage.getItem('Nickname'));
+    for(let i = 0;i < conversations.length;i++){
+      if(conversations[i].Nickname == Nickname) {
+        conversations[i].Count = 0;
+        this.setConversations(sessionStorage.getItem('Nickname'),conversations);
+        return;
+      }
+    }
+  }
+  public setMessages(Nickname,messages):void{
 
   }
-  public setConversations():void{
-
+  public addMessage(Nickname,message):void{
+    if(this.hasConversation(Nickname)){
+      let conversations = this.getConversations(sessionStorage.getItem("Nickname"));
+      let conversationsNickname = this.getConversations(Nickname);
+      for(let i = 0;i < conversations.length;i++){
+        if(conversations[i].Nickname == Nickname){
+          if(conversations[i].messages==null){
+            conversations[i].messages = [message];
+          }
+          else {
+            conversations[i].messages = conversations[i].messages.concat(message);
+          }
+          this.setConversations(sessionStorage.getItem("Nickname"),conversations);
+          break;
+        }
+      }
+      for(let i = 0;i < conversationsNickname.length;i++){
+        if(conversationsNickname[i].Nickname == sessionStorage.getItem("Nickname")){
+          if(conversationsNickname[i].messages==null){
+            conversationsNickname[i].messages = [message];
+          }
+          else {
+            conversationsNickname[i].messages = conversationsNickname[i].messages.concat(message);
+          }
+          conversationsNickname[i].Count++;
+          this.setConversations(Nickname,conversationsNickname);
+          break;
+        }
+      }
+    }
+    else{
+      let newConversation = new conversation();
+      newConversation.Nickname = Nickname;
+      newConversation.messages = [message];
+      newConversation.Count = 0;
+      this.addConversation(sessionStorage.getItem("Nickname"),newConversation);
+      newConversation.Count = 1;
+      newConversation.Nickname = sessionStorage.getItem("Nickname");
+      this.addConversation(Nickname,newConversation);
+    }
   }
-  public setMessages():void{
-
+  public getMessages(Nickname):any{
+    if(this.hasConversation(Nickname)){
+      let conversations = this.getConversations(sessionStorage.getItem("Nickname"));
+      for(let i = 0;i < conversations.length;i++){
+        if(conversations[i].Nickname == Nickname){
+          return conversations[i].messages;
+        }
+      }
+    }
+    return null;
   }
   public getFollowers(Nickname):any{
     return JSON.parse(localStorage.getItem(Nickname+':followers'));

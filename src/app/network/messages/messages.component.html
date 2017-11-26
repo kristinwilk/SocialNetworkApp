@@ -2,25 +2,9 @@
   <input type="search" name="" placeholder="search" class="input" />
 </form>
 <div id="all">
-  <div class="post" #Friend>
-    <img (click)="router.navigate(['/timeTO/'+person[0]]);" src="assets/img.Images_Pic_tmp.jpg" class="littleAvatar" />
-    <br>Fess
-    <i>1 message</i>
-  </div>
-  <div class="post">
-    <img (click)="router.navigate(['/timeTO/'+person[0]]);" src="assets/img.Images_Pic_tmp.jpg" class="littleAvatar" />
-    <br>Fess
-    <i>1 message</i>
-  </div>
-  <div class="post">
-    <img (click)="router.navigate(['/timeTO/'+person[0]]);" src="assets/img.Images_Pic_tmp.jpg" class="littleAvatar" />
-    <br>Fess
-    <i>1 message</i>
-  </div>
-  <div class="post">
-    <img (click)="router.navigate(['/timeTO/'+person[0]]);" src="assets/img.Images_Pic_tmp.jpg" class="littleAvatar" />
-    <br>Fess
-    <i>1 message</i>
-  </div>
+  <div *ngFor="let conversation of conversations">
+  <app-conversations [conversation]=conversation (notify)="showMessages($event)"></app-conversations>
 </div>
-<app-dialog></app-dialog>
+</div>
+<app-dialog *ngIf="isChosenDialog" [Nickname]="Nickname"></app-dialog>
+<h2 style="text-align: center" *ngIf="!isChosenDialog">Choose dialog</h2>

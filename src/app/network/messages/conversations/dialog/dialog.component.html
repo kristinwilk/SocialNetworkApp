@@ -1,8 +1,7 @@
 <div id="dialog" style="margin-left:28%;width: 70%;height: 460px">
-  <p style="text-align: center;width: 100%">Fess</p>
-  <app-message></app-message>
-  <app-message></app-message>
-  <app-message></app-message>
-  <app-message></app-message>
+  <p style="text-align: center;width: 100%"><a #A href="/timeTO/{{Nickname}}">{{Nickname}}</a></p>
+  <div *ngFor="let message of messages">
+    <app-message [message]="message"></app-message>
+  </div>
 </div>
-<app-new-message></app-new-message>
+<app-new-message [Nickname]="Nickname"></app-new-message>

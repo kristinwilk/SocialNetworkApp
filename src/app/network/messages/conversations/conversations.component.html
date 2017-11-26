@@ -1,3 +1,5 @@
-<p>
-  conversations works!
-</p>
+<div (click)="dialog()" class="post" #Conversation>
+  <img (click)="router.navigate(['/timeTO/'+conversation.Nickname]);" src="{{Url}}" class="littleAvatar" />
+  <br><a #A href="/timeTO/{{conversation.Nickname}}">{{conversation.Nickname}}</a>
+  <i>{{word}}</i>
+</div>
