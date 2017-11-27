@@ -554,4 +554,16 @@ export class MainServiceService {
     }
     return result;
   }
+  public getStorageMessages():any{
+    return JSON.parse(localStorage.getItem(this.getMainPerson()+":storage"));
+  }
+  public setStorageMessages(messages):void{
+    localStorage.setItem(this.getMainPerson()+":storage",JSON.stringify(messages));
+  }
+  public addStorageMessage(message):void{
+    if(this.getStorageMessages()!=null)
+      this.setStorageMessages(this.getStorageMessages().concat(message));
+    else
+      this.setStorageMessages([message]);
+  }
 }

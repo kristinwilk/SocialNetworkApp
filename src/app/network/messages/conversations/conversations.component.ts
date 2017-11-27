@@ -14,6 +14,7 @@ export class ConversationsComponent implements OnInit {
   @Input() conversation = new conversation();
   @ViewChild('Conversation') Conversation:ElementRef;
   @Output() notify: EventEmitter<any> = new EventEmitter();
+  @Input() isStorage;
   Url = 'assets/img.Images_Pic_tmp.jpg';
   word = '';
   ngOnInit() {
@@ -29,10 +30,12 @@ export class ConversationsComponent implements OnInit {
     }
   }
   dialog(){
-    this.Conversation.nativeElement.style.backgroundColor = 'rgb(205,216,228)';
-    this.service.conversationChecked(this.conversation.Nickname);
-    this.router.navigate(['/messages/'+this.conversation.Nickname]);
-    this.notify.emit(this.conversation.Nickname);
+    if(!this.isStorage) {
+      this.Conversation.nativeElement.style.backgroundColor = 'rgb(205,216,228)';
+      this.service.conversationChecked(this.conversation.Nickname);
+      this.router.navigate(['/messages/' + this.conversation.Nickname]);
+      this.notify.emit(this.conversation.Nickname);
+    }
   }
 
 }

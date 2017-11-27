@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {TextInfoComponent} from "./text-info/text-info.component";
 import {person, post} from "../../../classes";
 import {MainServiceService} from "../../../main-service.service";
@@ -11,19 +11,25 @@ import {Router} from "@angular/router";
 })
 export class PageInfoComponent implements OnInit {
   @ViewChild(TextInfoComponent) textInfo : TextInfoComponent;
+  @ViewChild('img') img:ElementRef;
+  @ViewChild('Input') Input:ElementRef;
+  @ViewChild('Delete') Delete:ElementRef;
   isEditing = 'Edit';
   isInvited = 'Invite';
   isAdded = 'Remove';
   Edit = 'inline-block';
   Remove = 'none';
   Invite = 'none';
+  file;
   Message = 'none';
+  temp;
   src ="assets/img.Images_Pic_tmp.jpg";
   constructor(private service: MainServiceService,private router:Router) { }
   @Input() person = new person();
   ngOnInit() {
     if(this.service.getAvatar(this.person.Nickname)!=null){
       this.src = this.service.getAvatar(this.person.Nickname);
+      this.temp = this.src;
     }
     if(!this.service.isAuthPerson(this.person.Nickname)){
       this.Edit = 'none';
@@ -76,13 +82,24 @@ export class PageInfoComponent implements OnInit {
       this.isInvited='Cancel invite';
     }
   }
-  changeBackground(){
-    if(document.querySelector('input').files[0]!=null) {
+  changeBackground(event){
+    if(event.srcElement.files[0]!=null) {
+      this.file = event.srcElement.files[0];
       let myReader: FileReader = new FileReader();
       myReader.onloadend = (e) => {
         this.src = myReader.result.toString();
+        this.Input.nativeElement.value = "";
+        this.img.nativeElement.style.display = 'inline-block';
+        this.Delete.nativeElement.style.display = 'inline-block';
       };
-      myReader.readAsDataURL(document.querySelector('input').files[0]);
+      myReader.readAsDataURL(this.file);
+    }
+  }
+  removeImage(){
+    if(this.file!=null) {
+      this.img.nativeElement.style.display = 'none';
+      this.Delete.nativeElement.style.display = 'none';
+      this.src = this.temp;
     }
   }
   remove(){

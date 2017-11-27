@@ -1,18 +1,16 @@
 <h2>Privacy</h2>
 <form name="myform" action="myformhandler.cgi" method="POST">
   <h4>Who can see your page?</h4> <br>
-  <input (click)="setFirst('No one')" type="radio" name="group1" id="No one" value="no one"> <label (click)="setFirst('No one')" for="no one">No one</label>
-  <input (click)="setFirst('Friends')" type="radio" name="group1" id="Friends" value="no one"> <label (click)="setFirst('Friends')" for="friends">Friends</label>
+  <input (click)="setFirst('Friends')" type="radio" name="group1" id="Friends" value="no one"> <label (click)="setFirst('Friends')" for="friends">Only friends</label>
   <input (click)="setFirst('All')" type="radio" checked name="group1" id="All" value="no one"> <label (click)="setFirst('All')" for="all">All</label>
   <hr>
   <h4>Who can send you messages?</h4><br>
-  <input (click)="setSecond('No one')" type="radio" name="group2" id="No one1" value="no one"> <label (click)="setSecond('No one')" for="no one1">No one</label>
-  <input (click)="setSecond('Friends')" type="radio" name="group2" id="Friends1" value="no one"> <label (click)="setSecond('Friends')" for="friends1">Friends</label>
+  <input (click)="setSecond('Friends')" type="radio" name="group2" id="Friends1" value="no one"> <label (click)="setSecond('Friends')" for="friends1">Only friends</label>
   <input (click)="setSecond('All')" type="radio" checked name="group2" id="All1" value="no one"> <label (click)="setSecond('All')" for="all1">All</label>
   <hr>
-  <h4>Who can send you invites?</h4><br>
-  <input (click)="setThird('No one')"  type="radio" name="group3" id="No one2" value="no one"> <label (click)="setThird('No one')" for="no one2">No one</label>
-  <input (click)="setThird('Friends')" type="radio" name="group3" id="Friends2" value="no one"> <label (click)="setThird('Friends')" for="friends2">Friends</label>
+  <h4>Who can write on your page?</h4><br>
+  <input (click)="setThird('No one')"  type="radio" name="group3" id="No one2" value="no one"> <label (click)="setThird('No one')" for="no one2">Only you</label>
+  <input (click)="setThird('Friends')" type="radio" name="group3" id="Friends2" value="no one"> <label (click)="setThird('Friends')" for="friends2">Only friends</label>
   <input (click)="setThird('All')" type="radio" checked name="group3" id="All2" value="no one"> <label (click)="setThird('All')" for="all2">All</label>
   <hr>
   <button (click)="changeSettings()"  class="bottomButtons">Submit</button>

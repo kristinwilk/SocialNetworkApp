@@ -1,8 +1,15 @@
 <div id="nextNews">
   <form method="get">
     <textarea #text [(ngModel)]="Text" name="s" placeholder="New note"></textarea>
-    <button style="display: none;" id="newPhoto"></button>
     <button (click)="addMessage()" minlength="1" type="button">Submit</button>
+    <input #Input (change)="changeBackground($event)" accept=".jpg, .jpeg, .png" type="file" name="upload" id="upload_hidden"
+           style="position: absolute; display: block; overflow: hidden; width: 0; height: 0; border: 0; padding: 0;"/>
+    <input type="text" readonly="1" id="upload_visible"
+           style="position: absolute; display: block; overflow: hidden; width: 0; height: 0; border: 0; padding: 0;"
+           onclick="document.getElementById('upload_hidden').click();" />
+    <br><button id="newPhoto" onclick="document.getElementById('upload_hidden').click();"></button>
+    <img #img style="display:none;width: 30px;height: 33px" src="{{src}}"/>
+    <button #Delete style="display:none;" id="delete" (click)="removeImage()"></button>
   </form>
 </div>
 

@@ -11,6 +11,7 @@ export class DialogComponent implements OnInit {
 
   constructor(private service:MainServiceService) { }
   @ViewChild('dialog') dialog:ElementRef;
+  @Input() isStorage;
   @Input() Nickname;
   messages;
 
@@ -22,7 +23,11 @@ export class DialogComponent implements OnInit {
       return a1.length == a2.length && a1.every((v,i)=>eq(v,a2[i]));
     }
     setInterval(()=>{
-      let newList = this.service.getMessages(this.Nickname);
+      let newList;
+      if(this.isStorage)
+        newList = this.service.getStorageMessages();
+      else
+        newList = this.service.getMessages(this.Nickname);
       if(this.messages==null||newList==null||!compare(newList,this.messages)) {
         this.messages = newList;
         this.service.conversationChecked(this.Nickname);

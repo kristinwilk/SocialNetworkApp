@@ -4,3 +4,5 @@
 <app-settings *ngIf=isSettings></app-settings>
 <app-news *ngIf=isNews></app-news>
 <app-messages *ngIf=isMessages></app-messages>
+<app-messages *ngIf=isStorage [isStorage]="true"></app-messages>
+<h2 *ngIf="!(isStorage+isMessages+isSettings+isFriends+isNews+isMain)">Error! Page not found!</h2>

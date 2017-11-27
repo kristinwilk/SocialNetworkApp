@@ -26,6 +26,7 @@ import { DialogComponent } from './network/messages/conversations/dialog/dialog.
 import { MessageComponent } from './network/messages/conversations/dialog/message/message.component';
 import { MessagesComponent } from './network/messages/messages.component';
 import { NewMessageComponent } from './network/messages/new-message/new-message.component';
+import { StorageComponent } from './network/storage/storage.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { NewMessageComponent } from './network/messages/new-message/new-message.
     DialogComponent,
     MessageComponent,
     MessagesComponent,
-    NewMessageComponent
+    NewMessageComponent,
+    StorageComponent
   ],
   imports: [
     BrowserModule,

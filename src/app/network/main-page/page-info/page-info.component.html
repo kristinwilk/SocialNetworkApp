@@ -1,7 +1,14 @@
 <div class="name">
   <p>{{person?.Name}} {{person?.Nickname}} {{person?.Surname}}
-    <input [style.display]="isEditing=='Ok'?'inline-block':'none'" (change)="changeBackground()" style="display: none" type="file"  id="profile_pic" name="profile_pic"
-           accept=".jpg, .jpeg, .png"></p>
+    <input #Input (change)="changeBackground($event)" accept=".jpg, .jpeg, .png" type="file" name="upload" id="upload_hidden"
+           style="position: absolute; display: block; overflow: hidden; width: 0; height: 0; border: 0; padding: 0;"/>
+    <input type="text" readonly="1" id="upload_visible"
+           style="position: absolute; display: block; overflow: hidden; width: 0; height: 0; border: 0; padding: 0;"
+           onclick="document.getElementById('upload_hidden').click();" />
+    <button [style.display]="isEditing=='Ok'?'inline-block':'none'" id="newPhoto" onclick="document.getElementById('upload_hidden').click();"></button>
+    <img #img style="display:none;width: 30px;height: 33px" src="{{src}}"/>
+    <button #Delete style="display:none;" id="delete" (click)="removeImage()"></button>
+  </p>
   <img class="avatar" id="avatar" [src]="src"/>
 </div>
 <div class="info">

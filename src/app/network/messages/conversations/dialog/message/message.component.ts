@@ -15,7 +15,9 @@ export class MessageComponent implements OnInit {
   @Input() message = new message();
   constructor(private service:MainServiceService) { }
   Url = 'assets/img.Images_Pic_tmp.jpg';
+  time;
   ngOnInit() {
+    this.time = new Date(this.message.time).toLocaleString();
     if (this.service.getAvatar(this.message.Nickname) != null) {
       this.Url = this.service.getAvatar(this.message.Nickname);
     }

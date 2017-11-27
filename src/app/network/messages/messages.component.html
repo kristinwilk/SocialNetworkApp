@@ -3,8 +3,8 @@
 </form>
 <div id="all">
   <div *ngFor="let conversation of conversations">
-  <app-conversations [conversation]=conversation (notify)="showMessages($event)"></app-conversations>
+  <app-conversations [isStorage]="isStorage" [conversation]=conversation (notify)="showMessages($event)"></app-conversations>
 </div>
 </div>
-<app-dialog *ngIf="isChosenDialog" [Nickname]="Nickname"></app-dialog>
+<app-dialog *ngIf="isChosenDialog" [isStorage]="isStorage" [Nickname]="Nickname"></app-dialog>
 <h2 style="text-align: center" *ngIf="!isChosenDialog">Choose dialog</h2>
