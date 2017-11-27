@@ -1,7 +1,7 @@
 <div id="nextNews">
   <form (submit)="add()" method="get">
-    <textarea [(ngModel)]="posts.text" name="s" placeholder="New note"></textarea>
-    <button style="display: none;" id="newPhoto"></button>
-    <button minlength="1" type="submit">Submit</button>
+    <textarea #text [(ngModel)]="posts.text" name="s" placeholder="New note"></textarea>
+    <button #Photo style="display: none;" id="newPhoto"></button>
+    <button #Submit minlength="1" type="submit">Submit</button>
   </form>
 </div>

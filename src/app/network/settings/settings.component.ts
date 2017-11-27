@@ -14,8 +14,8 @@ export class SettingsComponent implements OnInit {
   second = "All";
   third = "All";
   ngOnInit() {
-    if(this.service.getSettings()!=null){
-      let settings = this.service.getSettings();
+    if(this.service.getSettings(this.service.getMainPerson().Nickname)!=null){
+      let settings = this.service.getSettings(this.service.getMainPerson().Nickname);
       console.log(settings[0]);
       document.getElementById(settings[0]).click();
       document.getElementById(settings[1]+'1').click();

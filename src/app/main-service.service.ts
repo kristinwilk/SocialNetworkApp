@@ -121,7 +121,9 @@ export class MainServiceService {
     }
   }
   public getAllPosts(Nickname):any{
-    return JSON.parse(localStorage.getItem(Nickname +':posts'));
+    if(this.isAuthPerson(Nickname)||this.hasFriend(Nickname)||this.getSettings(Nickname)[0]=='All')
+      return JSON.parse(localStorage.getItem(Nickname +':posts'));
+    return [];
   }
   public setAllPosts(Nickname,posts):void{
     localStorage.setItem(Nickname +':posts',JSON.stringify(posts));
@@ -320,7 +322,7 @@ export class MainServiceService {
   }
   public getNews():any{
     let friends = this.getAllFriends(sessionStorage.getItem("Nickname"));
-    let posts = new Array(0);
+    let posts = [];
     if(friends!=null) {
       for (let i = 0; i < friends.length; i++) {
         if (friends[i] != sessionStorage.getItem("Nickname")) {
@@ -328,6 +330,7 @@ export class MainServiceService {
         }
       }
     }
+    console.log(posts);
     for(let i = 0;i<posts.length;i++){
       if(posts[i].Nickname==sessionStorage.getItem("Nickname")){
         posts.splice(i,1);
@@ -337,8 +340,8 @@ export class MainServiceService {
     //   posts = posts.concat(JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':otherNews')))
     return posts;
   }
-  public getSettings():any{
-    return JSON.parse(localStorage.getItem(sessionStorage.getItem("Nickname")+':settings'));
+  public getSettings(Nickname):any{
+    return JSON.parse(localStorage.getItem(Nickname+':settings'));
   }
   public setSettings(settings):void{
     localStorage.setItem(sessionStorage.getItem("Nickname")+':settings',JSON.stringify(settings));
@@ -390,6 +393,18 @@ export class MainServiceService {
   }
   public hasInvite(Nickname):boolean{
     let friends = this.getAllInvites(sessionStorage.getItem("Nickname"));
+    if(friends == null){
+      return false;
+    }
+    for(let i = 0;i<friends.length;i++){
+      if(friends[i]==Nickname){
+        return true;
+      }
+    }
+    return false;
+  }
+  public hasFollower(Nickname):boolean{
+    let friends = this.getFollowers(sessionStorage.getItem("Nickname"));
     if(friends == null){
       return false;
     }
@@ -555,10 +570,10 @@ export class MainServiceService {
     return result;
   }
   public getStorageMessages():any{
-    return JSON.parse(localStorage.getItem(this.getMainPerson()+":storage"));
+    return JSON.parse(localStorage.getItem(this.getMainPerson().Nickname+":storage"));
   }
   public setStorageMessages(messages):void{
-    localStorage.setItem(this.getMainPerson()+":storage",JSON.stringify(messages));
+    localStorage.setItem(this.getMainPerson().Nickname+":storage",JSON.stringify(messages));
   }
   public addStorageMessage(message):void{
     if(this.getStorageMessages()!=null)

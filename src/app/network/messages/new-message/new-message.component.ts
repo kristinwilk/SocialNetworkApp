@@ -1,25 +1,47 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {MainServiceService} from "../../../main-service.service";
 import {message} from "../../../classes";
+import set = Reflect.set;
 
 @Component({
   selector: 'app-new-message',
   templateUrl: './new-message.component.html',
   styleUrls: ['./new-message.component.scss']
 })
-export class NewMessageComponent implements OnInit {
+export class NewMessageComponent implements OnInit, OnChanges {
   @Input() Nickname;
   @ViewChild('text') text:ElementRef;
   @ViewChild('img') img:ElementRef;
   @ViewChild('Input') Input:ElementRef;
   @ViewChild('Delete') Delete:ElementRef;
+  @ViewChild('Photo') Photo:ElementRef;
+  @ViewChild('Submit') Submit:ElementRef;
   @Input() isStorage;
   Text;
   constructor(private service:MainServiceService) { }
   src;
   file;
+  ngOnChanges() {
+    this.ngOnInit();
+  }
   ngOnInit() {
+    this.Submit.nativeElement.style.display = 'inline-block';
+    this.Photo.nativeElement.style.display = 'inline-block';
     this.Text = '';
+    this.text.nativeElement.removeAttribute('disabled');
+    if(this.isStorage)
+      return;
+    let settings = this.service.getSettings(this.Nickname);
+    if(settings==null)
+      return;
+    if(settings[1]=='All')
+      return;
+    if(this.service.hasFriend(this.Nickname))
+      return;
+    this.text.nativeElement.setAttribute('disabled','true');
+    this.Text = this.Nickname + ' has restricted the list of persons who can send messages to him';
+    this.Submit.nativeElement.style.display = 'none';
+    this.Photo.nativeElement.style.display = 'none';
   }
 
   addMessage(){

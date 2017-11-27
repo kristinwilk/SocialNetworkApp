@@ -36,7 +36,7 @@ export class PageInfoComponent implements OnInit {
       if(this.service.hasFriend(this.person.Nickname)){
         this.Remove = 'inline-block';
       }
-      else if(this.service.hasInvite(this.person.Nickname)){
+      else if(this.service.hasInvite(this.person.Nickname)||this.service.hasFollower(this.person.Nickname)){
         this.isAdded = 'Accept invite';
         this.Remove = 'inline-block';
       }
