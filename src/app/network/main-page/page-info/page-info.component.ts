@@ -27,6 +27,7 @@ export class PageInfoComponent implements OnInit {
   constructor(private service: MainServiceService,private router:Router) { }
   @Input() person = new person();
   ngOnInit() {
+    this.temp = this.src;
     if(this.service.getAvatar(this.person.Nickname)!=null){
       this.src = this.service.getAvatar(this.person.Nickname);
       this.temp = this.src;
@@ -62,12 +63,14 @@ export class PageInfoComponent implements OnInit {
     }
     else{
       this.isEditing = 'Edit';
-      if(document.querySelector('input').files[0]!=null) {
+      if(this.file!=null) {
         let myReader: FileReader = new FileReader();
         myReader.onloadend = (e) => {
           this.service.setAvatar(myReader.result);
+          this.img.nativeElement.style.display = 'none';
+          this.Delete.nativeElement.style.display = 'none';
         };
-        myReader.readAsDataURL(document.querySelector('input').files[0]);
+        myReader.readAsDataURL(this.file);
       }
       this.textInfo.endOfEdit();
     }

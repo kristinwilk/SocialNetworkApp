@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {MainServiceService} from "../../../main-service.service";
 import {message} from "../../../classes";
 import set = Reflect.set;
@@ -21,7 +21,7 @@ export class NewMessageComponent implements OnInit, OnChanges {
   constructor(private service:MainServiceService) { }
   src;
   file;
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     this.ngOnInit();
   }
   ngOnInit() {

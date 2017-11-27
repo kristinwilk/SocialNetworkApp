@@ -322,6 +322,7 @@ export class MainServiceService {
   }
   public getNews():any{
     let friends = this.getAllFriends(sessionStorage.getItem("Nickname"));
+    friends = friends.concat(this.getAllSentInvites(sessionStorage.getItem("Nickname")));
     let posts = [];
     if(friends!=null) {
       for (let i = 0; i < friends.length; i++) {

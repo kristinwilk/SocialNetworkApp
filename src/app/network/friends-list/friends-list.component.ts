@@ -14,7 +14,7 @@ import {type} from "os";
 export class FriendsListComponent implements OnInit {
 
   @ViewChild('search') searchField:ElementRef;
-  constructor(private service: MainServiceService) { }
+  constructor(public service: MainServiceService) { }
   @Input() person = new person();
   list =  null;
   type;

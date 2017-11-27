@@ -9,13 +9,11 @@ import {debug} from "util";
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.css']
 })
-export class SignInFormComponent implements OnInit {
+export class SignInFormComponent {
 
   constructor(private service : MainServiceService) { }
   error_message = '';
   person = new person();
-  ngOnInit() {
-  }
   checkPerson (){
     event.preventDefault();
     if(this.service.checkNickname(this.person)){

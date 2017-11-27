@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class ConversationsComponent implements OnInit {
 
-  constructor(private service:MainServiceService,private router:Router) { }
+  constructor(private service:MainServiceService,public router:Router) { }
   @Input() conversation = new conversation();
   @ViewChild('Conversation') Conversation:ElementRef;
   @Output() notify: EventEmitter<any> = new EventEmitter();

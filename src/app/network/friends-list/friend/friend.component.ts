@@ -17,7 +17,7 @@ export class FriendComponent implements OnInit {
   Message = 'Message';
   Accept = 'Accept';
   Url = "assets/img.Images_Pic_tmp.jpg";
-  constructor(private service:MainServiceService,private router:Router) { }
+  constructor(private service:MainServiceService,public router:Router) { }
   @Input() person = new person();
   @Input() isAuth;
   ngOnInit() {

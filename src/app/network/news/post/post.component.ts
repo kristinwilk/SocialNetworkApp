@@ -39,7 +39,7 @@ export class PostComponent implements OnInit {
     }
     this.Nickname = this.post.Nickname;
     this.time = new Date(this.post.time).toLocaleString();
-    if(this.post.text.indexOf("data:image/png;base64,")!=-1){
+    if(this.post.text.indexOf("data:image/png;base64,")!=-1||(this.post.text.indexOf("data:image/jpeg;base64,")!=-1)||(this.post.text.indexOf("data:image/jpg;base64,")!=-1)){
       this.EditButton.nativeElement.style.display = 'none';
       this.el.nativeElement.remove();
       this.isAvatar  = ' has changed his avatar:';

@@ -1,6 +1,6 @@
 <div id="textInfo">
-  <p>Age: <input [disabled]='disabled' class="textInfo" disabled [(ngModel)]="info.age" maxlength="3" (keypress)="check(event)" id="age" /></p>
-  <p>Phone: <input [disabled]='disabled' class="textInfo" disabled [(ngModel)]="info.phone" maxlength="20" (keypress)="check(event)" pattern='/^[\+\(]{0,1}[\d]+[a-z\(\)\-\+\s]*/ig' id="phone" /></p>
+  <p>Age: <input [disabled]='disabled' class="textInfo" disabled [(ngModel)]="info.age" maxlength="3" (keypress)="check($event)" id="age" /></p>
+  <p>Phone: <input [disabled]='disabled' class="textInfo" disabled [(ngModel)]="info.phone" maxlength="20" (keypress)="check($event)" pattern='/^[\+\(]{0,1}[\d]+[a-z\(\)\-\+\s]*/ig' id="phone" /></p>
   <p>City: <input [disabled]='disabled' class="textInfo" maxlength="20" [(ngModel)]="info.city" pattern='' id="city" /></p>
   <p>Interests:</p><textarea [disabled]='disabled' class="textInfo" style="height: 61px;width: 390px"  maxlength="185" disabled [(ngModel)]="info.interests" pattern='' id="interests"></textarea>
 </div>

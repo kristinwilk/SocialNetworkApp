@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-  <form class="form-container" (submit)="checkPerson(event)">
+  <form class="form-container" (submit)="checkPerson()">
   <div class="form-title"><h2>Sign in</h2></div>
   <div class="form-title">Nickname</div>
   <input [(ngModel)]="person.Nickname" minlength="3" pattern='' required class="form-field" type="text" name="Nickname" /><br />

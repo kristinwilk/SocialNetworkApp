@@ -15,11 +15,15 @@ export class MessageComponent implements OnInit {
   @Input() message = new message();
   constructor(private service:MainServiceService) { }
   Url = 'assets/img.Images_Pic_tmp.jpg';
+  @ViewChild('A') A:ElementRef;
   time;
   ngOnInit() {
     this.time = new Date(this.message.time).toLocaleString();
     if (this.service.getAvatar(this.message.Nickname) != null) {
       this.Url = this.service.getAvatar(this.message.Nickname);
     }
+  }
+  changeLocation(){
+    this.A.nativeElement.click();
   }
 }

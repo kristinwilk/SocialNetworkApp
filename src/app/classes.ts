@@ -15,7 +15,7 @@ export class person {
  }
  export class info {
      public age;
-     public likes;
+     public phone;
      public city;
      public interests: String;
  }

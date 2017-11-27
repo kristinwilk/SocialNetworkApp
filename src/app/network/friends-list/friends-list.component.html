@@ -4,9 +4,9 @@
 </form>
 <button class="postButtons" (click)="friends()" id="Friends">Friends</button>
 <button class="postButtons"  (click)="followers()" id="Followers">Followers</button>
-<button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="Search()" id="Search">Search</button>
-<button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="invites()" id="Invites">Invites</button>
-<button *ngIf="this.service.isAuthPerson(this.person.Nickname)" class="postButtons"  (click)="sentInvites()" id="Sent invites">Sent invites</button>
+<button *ngIf="service.isAuthPerson(person.Nickname)" class="postButtons"  (click)="Search()" id="Search">Search</button>
+<button *ngIf="service.isAuthPerson(person.Nickname)" class="postButtons"  (click)="invites()" id="Invites">Invites</button>
+<button *ngIf="service.isAuthPerson(person.Nickname)" class="postButtons"  (click)="sentInvites()" id="Sent invites">Sent invites</button>
 <div *ngFor="let user of list">
   <app-friend [person]=user [isAuth]="isAuth"></app-friend>
 </div>

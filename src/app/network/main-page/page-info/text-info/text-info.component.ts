@@ -22,10 +22,12 @@ export class TextInfoComponent implements OnInit {
   check(event) {
 
     if (event.ctrlKey || event.altKey || event.metaKey) return;
-
-    if (event.keyCode< '0' || event.keyCode > '9') {
+    if (event.keyCode< 48 || event.keyCode > 57) {
+      console.log(event.keyCode);
+      console.log('0'.valueOf());
       return false;
     }
+    return true;
   }
   public edit(){
    this.disabled = false;
