@@ -31,6 +31,9 @@ export class MainPageComponent implements OnInit {
     }
     setInterval(()=>{
       let newList = this.service.getAllPosts(this.person.Nickname);
+      if(newList!=null) {
+        newList.sort(this.compare);
+      }
       if(this.list==null||newList==null||!compare(newList,this.list)) {
         this.list = newList;
       }

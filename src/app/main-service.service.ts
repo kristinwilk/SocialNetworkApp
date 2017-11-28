@@ -91,9 +91,7 @@ export class MainServiceService {
     let posts = JSON.parse(localStorage.getItem(post.published +':posts'));
     for(let i = 0;i<posts.length;i++){
       if(posts[i].id == post.id){
-        console.log(post);
         posts[i] = post;
-        console.log(posts[i]);
         this.setAllPosts(post.published,posts);
         return;
       }
@@ -121,7 +119,7 @@ export class MainServiceService {
     }
   }
   public getAllPosts(Nickname):any{
-    if(this.isAuthPerson(Nickname)||this.hasFriend(Nickname)||this.getSettings(Nickname)[0]=='All')
+    if(this.isAuthPerson(Nickname)||this.hasFriend(Nickname)||this.getSettings(Nickname)==null||this.getSettings(Nickname)[0]=='All')
       return JSON.parse(localStorage.getItem(Nickname +':posts'));
     return [];
   }
@@ -322,7 +320,10 @@ export class MainServiceService {
   }
   public getNews():any{
     let friends = this.getAllFriends(sessionStorage.getItem("Nickname"));
-    friends = friends.concat(this.getAllSentInvites(sessionStorage.getItem("Nickname")));
+    if(friends==null)
+      friends = this.getAllSentInvites(sessionStorage.getItem("Nickname"));
+    else
+      friends = friends.concat(this.getAllSentInvites(sessionStorage.getItem("Nickname")));
     let posts = [];
     if(friends!=null) {
       for (let i = 0; i < friends.length; i++) {
@@ -331,7 +332,6 @@ export class MainServiceService {
         }
       }
     }
-    console.log(posts);
     for(let i = 0;i<posts.length;i++){
       if(posts[i].Nickname==sessionStorage.getItem("Nickname")){
         posts.splice(i,1);
