@@ -331,10 +331,10 @@ export class MainServiceService {
           posts = posts.concat(this.getAllPosts(friends[i]));
         }
       }
-    }
-    for(let i = 0;i<posts.length;i++){
-      if(posts[i].Nickname==sessionStorage.getItem("Nickname")){
-        posts.splice(i,1);
+      for(let i = 0;i<posts.length;i++){
+        if(posts[i].Nickname==sessionStorage.getItem("Nickname")){
+          posts.splice(i,1);
+        }
       }
     }
     // if(localStorage.getItem(sessionStorage.getItem("Nickname")+':otherNews')!=null)
