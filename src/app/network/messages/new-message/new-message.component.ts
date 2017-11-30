@@ -21,6 +21,7 @@ export class NewMessageComponent implements OnInit, OnChanges {
   constructor(private service:MainServiceService) { }
   src;
   file;
+  rule;
   ngOnChanges(changes: SimpleChanges) {
     this.ngOnInit();
   }
