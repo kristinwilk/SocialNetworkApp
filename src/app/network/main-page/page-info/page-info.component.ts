@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {TextInfoComponent} from "./text-info/text-info.component";
-import {person, post} from "../../../classes";
+import {person} from "../../../classes";
 import {MainServiceService} from "../../../main-service.service";
 import {Router} from "@angular/router";
 
@@ -103,6 +103,7 @@ export class PageInfoComponent implements OnInit {
       this.img.nativeElement.style.display = 'none';
       this.Delete.nativeElement.style.display = 'none';
       this.src = this.temp;
+      this.file = null;
     }
   }
   remove(){
