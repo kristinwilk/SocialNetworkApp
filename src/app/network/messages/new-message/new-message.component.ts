@@ -22,29 +22,51 @@ export class NewMessageComponent implements OnInit, OnChanges {
   src;
   file;
   rule;
+  friend = this.service.hasFriend(this.Nickname);
+  settings = null;
   ngOnChanges(changes: SimpleChanges) {
     this.ngOnInit();
   }
   ngOnInit() {
+    setInterval(()=> {
+      let settings = this.service.getSettings(this.Nickname);
+      if (settings == null)
+        return;
+      if (this.settings != null && this.settings[1] == settings[1] && this.friend == this.service.hasFriend(this.Nickname))
+        return;
+      if (this.isStorage)
+        return;
+      if (settings[1] == 'All') {
+        if(this.settings[1]!=settings[1]) {
+          this.check_settings();
+          this.settings = settings;
+        }
+        return;
+      }
+      if (this.service.hasFriend(this.Nickname)) {
+        if(this.friend!=this.service.hasFriend(this.Nickname)) {
+          this.check_settings();
+          this.settings = settings;
+          this.friend = this.service.hasFriend(this.Nickname);
+        }
+        return;
+      }
+      this.text.nativeElement.setAttribute('disabled', 'true');
+      this.Text = this.Nickname + ' has restricted the list of persons who can send messages to him';
+      this.Submit.nativeElement.style.display = 'none';
+      this.Photo.nativeElement.style.display = 'none';
+      this.settings = settings;
+      this.removeImage();
+      this.friend = this.service.hasFriend(this.Nickname);
+    },1);
+  }
+  check_settings() {
     this.Submit.nativeElement.style.display = 'inline-block';
     this.Photo.nativeElement.style.display = 'inline-block';
-    this.Text = '';
+    if(this.Text == this.Nickname + ' has restricted the list of persons who can send messages to him')
+      this.Text = '';
     this.text.nativeElement.removeAttribute('disabled');
-    if(this.isStorage)
-      return;
-    let settings = this.service.getSettings(this.Nickname);
-    if(settings==null)
-      return;
-    if(settings[1]=='All')
-      return;
-    if(this.service.hasFriend(this.Nickname))
-      return;
-    this.text.nativeElement.setAttribute('disabled','true');
-    this.Text = this.Nickname + ' has restricted the list of persons who can send messages to him';
-    this.Submit.nativeElement.style.display = 'none';
-    this.Photo.nativeElement.style.display = 'none';
   }
-
   addMessage(){
     if(this.Text!=''||this.src!='') {
       let mess = new message();

@@ -16,7 +16,7 @@ export class NextNewsComponent implements OnInit {
   @ViewChild('Submit') Submit:ElementRef;
   posts = new post();
   @Input() person = new person();
-  friend = this.service.hasFriend(this.person.Nickname);;
+  friend = this.service.hasFriend(this.person.Nickname);
   settings = null;
   ngOnInit() {
     setInterval(()=>{
@@ -26,20 +26,22 @@ export class NextNewsComponent implements OnInit {
       if(this.settings!=null&&this.settings[2]==settings[2]&&this.friend==this.service.hasFriend(this.person.Nickname))
         return;
       if(this.service.isAuthPerson(this.person.Nickname)) {
-        this.check_settings();
-        this.settings = settings;
         return;
       }
       if(settings[2]=='All') {
-        this.check_settings();
-        this.settings = settings;
+        if(this.settings[2]!=settings[2]) {
+          this.check_settings();
+          this.settings = settings;
+        }
         return;
       }
       if(settings[2]=='Friends')
-        if(this.service.hasFriend(this.person.Nickname)) {
-          this.check_settings();
-          this.settings = settings;
-          this.friend = this.service.hasFriend(this.person.Nickname);
+        if(this.service.hasFriend(this.person.Nickname)){
+          if(this.settings[2]!=settings[2]||this.friend!=this.service.hasFriend(this.person.Nickname)) {
+            this.check_settings();
+            this.settings = settings;
+            this.friend = this.service.hasFriend(this.person.Nickname);
+          }
           return;
         }
       this.text.nativeElement.setAttribute('disabled','true');
@@ -53,6 +55,8 @@ export class NextNewsComponent implements OnInit {
   check_settings(){
     this.text.nativeElement.removeAttribute('disabled');
     this.posts.text = '';
+    if(this.posts.text == this.person.Nickname + ' has restricted the list of persons who can add posts on his page')
+      this.posts.text = '';
     this.Submit.nativeElement.style.display = 'inline-block';
     this.Photo.nativeElement.style.display = 'inline-block';
   }
