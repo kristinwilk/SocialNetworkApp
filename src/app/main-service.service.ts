@@ -150,9 +150,24 @@ export class MainServiceService {
   }
   public search(Text,type,Nickname):any{
     let persons;
-    if(type == "search") {
+    if(type == "search"||type == "searchConversations") {
       persons = JSON.parse(localStorage.getItem("persons"));
     }
+    // if(type == "searchConversations") {
+    //   persons = JSON.parse(localStorage.getItem("persons"));
+    //   if(this.getAllInvites(this.getMainPerson().Nickname)!=null) {
+    //     if (persons == null)
+    //       persons = this.getAllInvites(this.getMainPerson().Nickname);
+    //     else
+    //       persons = persons.concat(this.getAllInvites(this.getMainPerson().Nickname));
+    //   }
+    //   if(this.getAllSentInvites(this.getMainPerson().Nickname)!=null) {
+    //     if (persons == null) {
+    //       persons = this.getAllSentInvites(this.getMainPerson().Nickname);
+    //     }
+    //     else persons = persons.concat(this.getAllSentInvites(this.getMainPerson().Nickname));
+    //   }
+    // }
     else {
       persons = JSON.parse(localStorage.getItem(Nickname+':'+type+'s'));
     }
@@ -207,6 +222,22 @@ export class MainServiceService {
         if(result[i] == Nickname){
           result.splice(i,1);
         }
+        }
+      }
+      if(type == "searchConversations") {
+        for (let i = result.length-1; i >= 0; i--) {
+          let friends = JSON.parse(localStorage.getItem(Nickname + ':friends'));
+          if(friends!=null) {
+            for (let j = 0; j < friends.length; j++) {
+              if (result[i] == friends[j]) {
+                result.splice(i, 1);
+                friends.splice(j, 1);
+              }
+            }
+          }
+          if(result[i] == Nickname){
+            result.splice(i,1);
+          }
         }
       }
     return result;
@@ -527,7 +558,7 @@ export class MainServiceService {
     let conversations = this.getConversations(sessionStorage.getItem("Nickname"));
     let persons = this.search(Text,'friend',sessionStorage.getItem("Nickname"));
     if(persons==null||persons.length==0){
-      persons = this.search(Text,'search',sessionStorage.getItem("Nickname"));
+      persons = this.search(Text,'searchConversations',sessionStorage.getItem("Nickname"));
       if(persons==null)
         return null;
     }
