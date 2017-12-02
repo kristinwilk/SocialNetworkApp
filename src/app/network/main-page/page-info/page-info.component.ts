@@ -64,11 +64,11 @@ export class PageInfoComponent implements OnInit {
     else{
       this.isEditing = 'Edit';
       if(this.file!=null) {
+        this.img.nativeElement.style.display = 'none';
+        this.Delete.nativeElement.style.display = 'none';
         let myReader: FileReader = new FileReader();
         myReader.onloadend = (e) => {
           this.service.setAvatar(myReader.result);
-          this.img.nativeElement.style.display = 'none';
-          this.Delete.nativeElement.style.display = 'none';
         };
         myReader.readAsDataURL(this.file);
       }
