@@ -51,6 +51,7 @@ export class NewMessageComponent implements OnInit, OnChanges {
       this.messages[this.Nickname] = this.Text;
       this.messages[this.Nickname+ ":img"] = this.src;
       let settings = this.service.getSettings(this.Nickname);
+      this.Nick=this.Nickname;
       if (settings == null) {
         if (this.text.nativeElement.hasAttribute('disabled')){
           this.check_settings();
