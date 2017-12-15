@@ -1,9 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-  background-color: rgb(205,216,228);
+  background-color: #dcdcdc;
   -ms-overflow-style: none;
   overflow: auto;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  padding-top:55px;
 }
 body::-webkit-scrollbar{
   width: 0;
+}
+
+p{
+  margin-top:15px !important;
+  margin-bottom:30px !important;
 }

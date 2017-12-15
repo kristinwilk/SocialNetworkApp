@@ -1,6 +1,6 @@
 <div id="nextNews">
   <form method="get">
-    <textarea #text [(ngModel)]="Text" name="s" placeholder="New note"></textarea>
+    <textarea #text [(ngModel)]="Text" name="s" placeholder="What's on your mind?"></textarea>
     <button #Submit (click)="addMessage()" minlength="1" type="button">Submit</button>
     <input #Input (change)="changeBackground($event)" accept=".jpg, .jpeg, .png" type="file" name="upload" id="upload_hidden"
            style="position: absolute; display: block; overflow: hidden; width: 0; height: 0; border: 0; padding: 0;"/>

@@ -1,5 +1,5 @@
 <div class="name">
-  <p>{{person?.Name}} {{person?.Nickname}} {{person?.Surname}}
+  <p>{{person?.Name}} {{person?.Surname}}
     <input #Input (change)="changeBackground($event)" accept=".jpg, .jpeg, .png" type="file" name="upload" id="upload_hidden"
            style="position: absolute; display: block; overflow: hidden; width: 0; height: 0; border: 0; padding: 0;"/>
     <input type="text" readonly="1" id="upload_visible"
@@ -14,8 +14,8 @@
 <div class="info">
   <app-text-info [person]="person"></app-text-info>
   <a href="/friends/{{person.Nickname}}" class="bottomButtons">Friends</a>
-  <a [style.display]="Edit" (click)="edit()" id="Edit" class="bottomButtons" style="left: 29%" name="edit">{{isEditing}}</a>
-  <a [style.display]="Invite" (click)="invite()" class="bottomButtons" id="invite" style="left: 29%;display: none">{{isInvited}}</a>
-  <a [style.display]="Remove" (click)="remove()" class="bottomButtons" id="remove" style="left: 29%;display: none">{{isAdded}}</a>
-  <a [style.display]="Message" (click)="message()" class="bottomButtons" id="message" style="left: 51%;display: none;">Message</a>
+  <a [style.display]="Edit" (click)="edit()" id="Edit" class="bottomButtons" style="left: 36%" name="edit">{{isEditing}}</a>
+  <a [style.display]="Invite" (click)="invite()" class="bottomButtons" id="invite" style="left: 36%;display: none">{{isInvited}}</a>
+  <a [style.display]="Remove" (click)="remove()" class="bottomButtons" id="remove" style="left: 36%;display: none; width:110px;">{{isAdded}}</a>
+  <a [style.display]="Message" (click)="message()" class="bottomButtons" id="message" style="left: 65%;display: none;">Message</a>
 </div>

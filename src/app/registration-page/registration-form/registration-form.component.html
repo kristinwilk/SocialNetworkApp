@@ -1,9 +1,9 @@
 <router-outlet></router-outlet>
   <form class="form-container" (submit)="add_person()">
   <div class="form-title"><h2>Sign up</h2></div>
-  <div class="form-title">Name</div>
+  <div class="form-title">First Name</div>
   <input class="form-field"  maxlength="10" pattern='^[a-zA-Z]+$'  [(ngModel)]="person.Name" required type="text" name="name" /><br />
-  <div class="form-title">Surname</div>
+  <div class="form-title">Last Name</div>
   <input class="form-field" maxlength="10" pattern='^[a-zA-Z]+$'  [(ngModel)]="person.Surname" required type="text" name="surname" /><br />
   <div class="form-title">Nickname</div>
   <input class="form-field" maxlength="10" [(ngModel)]="person.Nickname" required  type="text" name="nick" /><br />

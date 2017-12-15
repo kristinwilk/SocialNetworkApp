@@ -42,7 +42,7 @@ export class PostComponent implements OnInit {
     if(this.post.text.indexOf("data:image/png;base64,")!=-1||(this.post.text.indexOf("data:image/jpeg;base64,")!=-1)||(this.post.text.indexOf("data:image/jpg;base64,")!=-1)){
       this.EditButton.nativeElement.style.display = 'none';
       this.el.nativeElement.remove();
-      this.isAvatar  = ' has changed his avatar:';
+      this.isAvatar  = ' has changed their profile picture:';
       this.src = this.post.text;
       this.Height = 405;
     }

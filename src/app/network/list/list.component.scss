@@ -1,59 +1,56 @@
 #list {
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   position: fixed;
-  background-color: rgb(64,73,82);
+  background-color: #4D82BC;
   float: left;
-  width: 250px;
-  height: 100%;
+  width: 100%;
+  height: auto;
   -ms-overflow-style: none;
   overflow: auto;
+  z-index: 10;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.float-right {
+  float: right;
+  padding-top: 10px;
+  padding-right: 25px;
 }
 #list::-webkit-scrollbar{
   width: 0;
 }
 h1 {
-  color: rgb(205,216,228);
-  text-shadow: rgba(255,255,255,0.5) 0 3px 3px;
-  text-align: center;
-  font-style: italic;
-}
+  color: #fff;
+   display:inline-block;
+   font-size:20px;
+   font-weight:normal;
+   padding-left:15px;
+ }
 .leftButtons {
   margin-bottom: 2px;
-  width: 79%;
+  width: auto;
   height: 40px;
   display: inline-block;
-  font-size: 30px;
-  color: rgb(205,216,228);
+  font-size: 18px;
+  color: white;
   text-decoration: none;
   padding: .2em .8em;
   cursor: pointer;
   outline: none;
-  border-right: 3px solid rgba(13,20,27,.5);
-  border-top: 1px solid rgba(270,278,287,.01);
-  background-color: rgb(64,73,82);
-  background-image:
-    radial-gradient(1px 60% at 0% 50%, rgba(255,255,255,.3), transparent),
-    radial-gradient(1px 60% at 100% 50%, rgba(255,255,255,.3), transparent),
-    linear-gradient(rgb(64,73,82), rgb(72,81,90));
-  &:hover {
-    background-image:
-      radial-gradient(1px 60% at 0% 50%, rgba(255,255,255,.3), transparent),
-      radial-gradient(1px 60% at 100% 50%, rgba(255,255,255,.3), transparent),
-      linear-gradient(rgb(51,60,67), rgb(58,65,72));
-  }
-  &:focus {
-    color: rgb(245,247,250);
-    border-top: 1px solid rgb(67,111,136);
-    background-image:
-      linear-gradient(rgb(46,95,122), rgb(36,68,92));
-    &:hover {
-      border-top: 1px solid rgb(49,87,107);
-      background-image:
-        linear-gradient(rgb(33,77,98), rgb(29,57,77));
-    }
-  }
+  background-color: #4D82BC;
 }
 i {
   float: right;
+  background: #bf0d0d;
+  padding: 6px;
+  border-radius: 50%;
+  height: 8px;
+  margin-left: 0px;
+  font-size: 14px;
+  width: 10px;
+  line-height: .6;
+  margin-top: 7px;
+  z-index: 100;
+  position: relative;
 }

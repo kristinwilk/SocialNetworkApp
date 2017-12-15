@@ -1,10 +1,12 @@
 <div id="list">
-<h1>Time to!</h1>
-  <a href="/timeTO/{{person.Nickname}}" class="leftButtons">My page</a>
+<h1>Kristin's Social Platform</h1>
+<div class="float-right">  
+  <a href="/timeTO/{{person.Nickname}}" class="leftButtons">My profile</a>
   <a href="/news" class="leftButtons">News</a>
   <a href="/messages" class="leftButtons">Messages <i>{{CountMessages}}</i></a>
   <a href="/storage" class="leftButtons">Storage</a>
   <a href="/friends/{{person.Nickname}}" class="leftButtons">Friends <i>{{CountInvites}}</i></a>
   <a href="/settings" class="leftButtons">Settings</a>
-  <a href="/signIn" class="leftButtons" (click)="out()">Out</a>
+  <a href="/signIn" class="leftButtons" (click)="out()">Sign Out</a>
+</div>
 </div>
